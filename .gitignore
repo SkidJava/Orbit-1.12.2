@@ -1,0 +1,16 @@
+# Project exclude paths
+/.gradle/
+/build/
+/build/classes/java/main/
+/workspace/assets/
+/workspace/crash-reports/
+/workspace/logs/
+/workspace/Orbit/
+/workspace/saves/
+/workspace/resourcepacks/
+/workspace/shaderpacks/
+/workspace/options.txt
+/workspace/optionsof.txt
+/workspace/servers.dat
+/workspace/server.properties
+/workspace/usercache.json
