@@ -406,6 +406,16 @@ public class Minecraft implements IThreadListener, ISnooperInfo
     /** Profiler currently displayed in the debug screen pie chart */
     private String debugProfilerName = "root";
 
+    public boolean leak;
+
+    public void setLeak(boolean leaks) {
+        this.leak = leaks;
+    }
+
+    public boolean getLeak() {
+        return this.leak;
+    }
+
     public Minecraft(GameConfiguration gameConfig)
     {
         theMinecraft = this;
