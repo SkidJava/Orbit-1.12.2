@@ -184,6 +184,7 @@ public class GameSettings
 
     /** The lastServer string. */
     public String lastServer;
+    public String lastLeak;
 
     /** Smooth Camera Toggle */
     public boolean smoothCamera;
@@ -291,6 +292,7 @@ public class GameSettings
         this.keyBindings = ArrayUtils.addAll(new KeyBinding[] {this.keyBindAttack, this.keyBindUseItem, this.keyBindForward, this.keyBindLeft, this.keyBindBack, this.keyBindRight, this.keyBindJump, this.keyBindSneak, this.keyBindSprint, this.keyBindDrop, this.keyBindInventory, this.keyBindChat, this.keyBindPlayerList, this.keyBindPickBlock, this.keyBindCommand, this.keyBindScreenshot, this.keyBindTogglePerspective, this.keyBindSmoothCamera, this.keyBindFullscreen, this.keyBindSpectatorOutlines, this.keyBindSwapHands, this.field_193629_ap, this.field_193630_aq, this.field_194146_ao}, this.keyBindsHotbar);
         this.difficulty = EnumDifficulty.NORMAL;
         this.lastServer = "";
+        this.lastLeak = "";
         this.fovSetting = 70.0F;
         this.language = "en_us";
         this.mc = mcIn;
@@ -322,6 +324,7 @@ public class GameSettings
         this.keyBindings = ArrayUtils.addAll(new KeyBinding[] {this.keyBindAttack, this.keyBindUseItem, this.keyBindForward, this.keyBindLeft, this.keyBindBack, this.keyBindRight, this.keyBindJump, this.keyBindSneak, this.keyBindSprint, this.keyBindDrop, this.keyBindInventory, this.keyBindChat, this.keyBindPlayerList, this.keyBindPickBlock, this.keyBindCommand, this.keyBindScreenshot, this.keyBindTogglePerspective, this.keyBindSmoothCamera, this.keyBindFullscreen, this.keyBindSpectatorOutlines, this.keyBindSwapHands, this.field_193629_ap, this.field_193630_aq, this.field_194146_ao}, this.keyBindsHotbar);
         this.difficulty = EnumDifficulty.NORMAL;
         this.lastServer = "";
+        this.lastLeak = "";
         this.fovSetting = 70.0F;
         this.language = "en_us";
     }
@@ -1153,6 +1156,11 @@ public class GameSettings
                         this.lastServer = s2;
                     }
 
+                    if ("lastLeak".equals(s1))
+                    {
+                        this.lastLeak = s2;
+                    }
+
                     if ("lang".equals(s1))
                     {
                         this.language = s2;
@@ -1462,6 +1470,7 @@ public class GameSettings
             printwriter.println("resourcePacks:" + GSON.toJson(this.resourcePacks));
             printwriter.println("incompatibleResourcePacks:" + GSON.toJson(this.incompatibleResourcePacks));
             printwriter.println("lastServer:" + this.lastServer);
+            printwriter.println("lastLeak:" + this.lastLeak);
             printwriter.println("lang:" + this.language);
             printwriter.println("chatVisibility:" + this.chatVisibility.getChatVisibility());
             printwriter.println("chatColors:" + this.chatColours);
