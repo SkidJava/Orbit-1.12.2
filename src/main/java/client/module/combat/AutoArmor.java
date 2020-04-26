@@ -103,7 +103,7 @@ public class AutoArmor extends Module {
     }
 
     private int getArmorScore(int id) {
-        if(id < 301) return 0;
+        if(id <= 301) return 0;
         else if(id <= 305) return 1;
         else if(id <= 309) return 2;
         else if(id <= 313) return 4;
