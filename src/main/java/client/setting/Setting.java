@@ -69,8 +69,10 @@ public class Setting {
     }
 
     public void setCurrentOption(String currentOption) {
-        new EventChangeOption(module, currentOption, this.currentOption).call();
-        this.currentOption = currentOption;
+        if (!this.currentOption.equals(currentOption)) {
+            new EventChangeOption(module, currentOption, this.currentOption).call();
+            this.currentOption = currentOption;
+        }
     }
 
     public float getCurrentValue() {
