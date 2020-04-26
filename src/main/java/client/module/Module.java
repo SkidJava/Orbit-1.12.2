@@ -130,6 +130,14 @@ public class Module {
         }
     }
 
+    public Module getComponent(Class<? extends Module> mods) {
+        for (Module m : this.components) {
+            if (m.getClass() == mods)
+                return m;
+        }
+        return null;
+    }
+
     public void setVisible(boolean visib) {
         this.visible = visib;
     }

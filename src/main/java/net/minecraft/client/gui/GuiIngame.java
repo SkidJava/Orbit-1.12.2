@@ -2,6 +2,9 @@ package net.minecraft.client.gui;
 
 import client.event.events.render.EventRender2D;
 import client.manager.Managers;
+import client.module.render.ScreenEffect;
+import client.module.render.hud.HUD;
+import client.module.render.hud.components.DrawPotions;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -482,6 +485,9 @@ public class GuiIngame extends Gui
 
     protected void renderPotionEffects(ScaledResolution resolution)
     {
+        System.out.println("あああ");
+        if (Managers.getManagers().moduleManager.getModule(HUD.class).getComponent(DrawPotions.class).isEnabled()) return;
+
         Collection<PotionEffect> collection = this.mc.thePlayer.getActivePotionEffects();
 
         if (!collection.isEmpty())
