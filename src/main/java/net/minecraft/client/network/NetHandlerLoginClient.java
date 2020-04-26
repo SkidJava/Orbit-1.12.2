@@ -66,16 +66,7 @@ public class NetHandlerLoginClient implements INetHandlerLoginClient {
             }
         } else {
             try {
-                if (this.mc.getLeak()) {
-                    try {
-                        MCLeaksAccount account = MCLeaksAPIConnection.getAccountFromToken(this.mc.gameSettings.lastLeak);
-                        MCLeaksAPIConnection.joinServer(account, s, s1);
-                    } catch (InvalidTokenException | APIDownException | InvalidResponseException | APIErrorException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    this.getSessionService().joinServer(this.mc.getSession().getProfile(), this.mc.getSession().getToken(), s1);
-                }
+                this.getSessionService().joinServer(this.mc.getSession().getProfile(), this.mc.getSession().getToken(), s1);
             } catch (AuthenticationUnavailableException var7) {
                 this.networkManager.closeChannel(new TextComponentTranslation("disconnect.loginFailedInfo", new TextComponentTranslation("disconnect.loginFailedInfo.serversUnavailable")));
                 return;

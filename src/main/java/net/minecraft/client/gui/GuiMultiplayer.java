@@ -39,9 +39,6 @@ public class GuiMultiplayer extends GuiScreen
     private LanServerDetector.ThreadLanServerFind lanServerDetector;
     private boolean initialized;
 
-
-    private GuiTextField mcleaksToken;
-
     public GuiMultiplayer(GuiScreen parentScreen)
     {
         this.parentScreen = parentScreen;
@@ -55,7 +52,6 @@ public class GuiMultiplayer extends GuiScreen
     {
         Keyboard.enableRepeatEvents(true);
         this.buttonList.clear();
-        this.mcleaksToken = new GuiTextField(77, this.fontRendererObj, this.width - 120, 5, 110, 20);
 
         if (this.initialized)
         {
@@ -82,7 +78,6 @@ public class GuiMultiplayer extends GuiScreen
             this.serverListSelector.updateOnlineServers(this.savedServerList);
         }
 
-        this.mcleaksToken.setFocused(true);
         this.createButtons();
     }
 
@@ -113,7 +108,6 @@ public class GuiMultiplayer extends GuiScreen
      */
     public void updateScreen()
     {
-        this.mcleaksToken.updateCursorCounter();
         super.updateScreen();
 
         if (this.lanServerList.getWasUpdated())
@@ -278,11 +272,6 @@ public class GuiMultiplayer extends GuiScreen
         int i = this.serverListSelector.getSelected();
         GuiListExtended.IGuiListEntry guilistextended$iguilistentry = i < 0 ? null : this.serverListSelector.getListEntry(i);
 
-        this.mcleaksToken.textboxKeyTyped(typedChar, keyCode);
-        if ((typedChar == '\t') && (this.mcleaksToken.isFocused())) {
-            this.mcleaksToken.setFocused(!this.mcleaksToken.isFocused());
-        }
-
         if (keyCode == 63)
         {
             this.refreshServerList();
@@ -387,10 +376,7 @@ public class GuiMultiplayer extends GuiScreen
 
         this.serverListSelector.drawScreen(mouseX, mouseY, partialTicks);
         this.drawCenteredString(this.fontRendererObj, I18n.format("multiplayer.title"), this.width / 2, 20, 16777215);
-        this.mcleaksToken.drawTextBox();
-        if (this.mcleaksToken.getText().isEmpty()) {
-            drawString(mc.fontRendererObj, "McLeaks Token", width - 116, 11, -7829368);
-        }
+
         super.drawScreen(mouseX, mouseY, partialTicks);
 
         if (this.hoveringText != null)
@@ -416,13 +402,6 @@ public class GuiMultiplayer extends GuiScreen
 
     private void connectToServer(ServerData server)
     {
-        if (this.mcleaksToken.getText().isEmpty()) {
-            this.mc.setLeak(false);
-        } else {
-            this.mc.setLeak(true);
-        }
-        this.mc.gameSettings.lastLeak = this.mcleaksToken.getText();
-        this.mc.gameSettings.saveOptions();
         this.mc.displayGuiScreen(new GuiConnecting(this, this.mc, server));
     }
 
@@ -462,7 +441,6 @@ public class GuiMultiplayer extends GuiScreen
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException
     {
         super.mouseClicked(mouseX, mouseY, mouseButton);
-        this.mcleaksToken.mouseClicked(mouseX, mouseY, mouseButton);
         this.serverListSelector.mouseClicked(mouseX, mouseY, mouseButton);
     }
 

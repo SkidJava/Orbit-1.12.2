@@ -184,7 +184,6 @@ public class GameSettings
 
     /** The lastServer string. */
     public String lastServer;
-    public String lastLeak;
 
     /** Smooth Camera Toggle */
     public boolean smoothCamera;
