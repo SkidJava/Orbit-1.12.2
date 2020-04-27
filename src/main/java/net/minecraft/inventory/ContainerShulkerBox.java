@@ -50,7 +50,7 @@ public class ContainerShulkerBox extends Container
      */
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
     {
-        ItemStack itemstack = ItemStack.field_190927_a;
+        ItemStack itemstack = ItemStack.itemStack;
         Slot slot = this.inventorySlots.get(index);
 
         if (slot != null && slot.getHasStack())
@@ -62,17 +62,17 @@ public class ContainerShulkerBox extends Container
             {
                 if (!this.mergeItemStack(itemstack1, this.field_190899_a.getSizeInventory(), this.inventorySlots.size(), true))
                 {
-                    return ItemStack.field_190927_a;
+                    return ItemStack.itemStack;
                 }
             }
             else if (!this.mergeItemStack(itemstack1, 0, this.field_190899_a.getSizeInventory(), false))
             {
-                return ItemStack.field_190927_a;
+                return ItemStack.itemStack;
             }
 
-            if (itemstack1.func_190926_b())
+            if (itemstack1.isEmpty())
             {
-                slot.putStack(ItemStack.field_190927_a);
+                slot.putStack(ItemStack.itemStack);
             }
             else
             {

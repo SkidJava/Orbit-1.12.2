@@ -7,13 +7,11 @@ import java.util.Random;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.model.ModelBook;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ContainerEnchantment;
 import net.minecraft.item.ItemStack;
@@ -53,7 +51,7 @@ public class GuiEnchantment extends GuiContainer
     public float flipA;
     public float open;
     public float oOpen;
-    private ItemStack last = ItemStack.field_190927_a;
+    private ItemStack last = ItemStack.itemStack;
     private final IWorldNameable nameable;
 
     public GuiEnchantment(InventoryPlayer inventory, World worldIn, IWorldNameable nameable)

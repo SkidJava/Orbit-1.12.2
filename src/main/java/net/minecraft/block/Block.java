@@ -9,7 +9,6 @@ import javax.annotation.Nullable;
 import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -743,7 +742,7 @@ public class Block
      */
     public static void spawnAsEntity(World worldIn, BlockPos pos, ItemStack stack)
     {
-        if (!worldIn.isRemote && !stack.func_190926_b() && worldIn.getGameRules().getBoolean("doTileDrops"))
+        if (!worldIn.isRemote && !stack.isEmpty() && worldIn.getGameRules().getBoolean("doTileDrops"))
         {
             float f = 0.5F;
             double d0 = (double)(worldIn.rand.nextFloat() * 0.5F) + 0.25D;

@@ -16,7 +16,7 @@ import net.minecraft.util.datafix.walkers.ItemStackDataLists;
 public class TileEntityDispenser extends TileEntityLockableLoot
 {
     private static final Random RNG = new Random();
-    private NonNullList<ItemStack> stacks = NonNullList.func_191197_a(9, ItemStack.field_190927_a);
+    private NonNullList<ItemStack> stacks = NonNullList.func_191197_a(9, ItemStack.itemStack);
 
     /**
      * Returns the number of slots in the inventory.
@@ -30,7 +30,7 @@ public class TileEntityDispenser extends TileEntityLockableLoot
     {
         for (ItemStack itemstack : this.stacks)
         {
-            if (!itemstack.func_190926_b())
+            if (!itemstack.isEmpty())
             {
                 return false;
             }
@@ -47,7 +47,7 @@ public class TileEntityDispenser extends TileEntityLockableLoot
 
         for (int k = 0; k < this.stacks.size(); ++k)
         {
-            if (!this.stacks.get(k).func_190926_b() && RNG.nextInt(j++) == 0)
+            if (!this.stacks.get(k).isEmpty() && RNG.nextInt(j++) == 0)
             {
                 i = k;
             }
@@ -64,7 +64,7 @@ public class TileEntityDispenser extends TileEntityLockableLoot
     {
         for (int i = 0; i < this.stacks.size(); ++i)
         {
-            if (this.stacks.get(i).func_190926_b())
+            if (this.stacks.get(i).isEmpty())
             {
                 this.setInventorySlotContents(i, stack);
                 return i;
@@ -90,7 +90,7 @@ public class TileEntityDispenser extends TileEntityLockableLoot
     public void readFromNBT(NBTTagCompound compound)
     {
         super.readFromNBT(compound);
-        this.stacks = NonNullList.func_191197_a(this.getSizeInventory(), ItemStack.field_190927_a);
+        this.stacks = NonNullList.func_191197_a(this.getSizeInventory(), ItemStack.itemStack);
 
         if (!this.checkLootAndRead(compound))
         {

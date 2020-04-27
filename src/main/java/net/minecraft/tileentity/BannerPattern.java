@@ -56,7 +56,7 @@ public enum BannerPattern
     BannerPattern(String p_i47245_3_, String p_i47245_4_)
     {
         this.field_191016_P = new String[3];
-        this.field_191017_Q = ItemStack.field_190927_a;
+        this.field_191017_Q = ItemStack.itemStack;
         this.field_191014_N = p_i47245_3_;
         this.field_191015_O = p_i47245_4_;
     }
@@ -92,12 +92,12 @@ public enum BannerPattern
 
     public boolean func_191000_d()
     {
-        return !this.field_191017_Q.func_190926_b() || this.field_191016_P[0] != null;
+        return !this.field_191017_Q.isEmpty() || this.field_191016_P[0] != null;
     }
 
     public boolean func_190999_e()
     {
-        return !this.field_191017_Q.func_190926_b();
+        return !this.field_191017_Q.isEmpty();
     }
 
     public ItemStack func_190998_f()

@@ -2,7 +2,6 @@ package net.minecraft.block;
 
 import java.util.Random;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
@@ -59,7 +58,7 @@ public class BlockCake extends Block
         else
         {
             ItemStack itemstack = playerIn.getHeldItem(hand);
-            return this.eatCake(worldIn, pos, state, playerIn) || itemstack.func_190926_b();
+            return this.eatCake(worldIn, pos, state, playerIn) || itemstack.isEmpty();
         }
     }
 

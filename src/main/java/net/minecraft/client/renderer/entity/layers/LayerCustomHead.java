@@ -1,7 +1,6 @@
 package net.minecraft.client.renderer.entity.layers;
 
 import com.mojang.authlib.GameProfile;
-import java.util.UUID;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -34,7 +33,7 @@ public class LayerCustomHead implements LayerRenderer<EntityLivingBase>
     {
         ItemStack itemstack = entitylivingbaseIn.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
 
-        if (!itemstack.func_190926_b())
+        if (!itemstack.isEmpty())
         {
             Item item = itemstack.getItem();
             Minecraft minecraft = Minecraft.getMinecraft();

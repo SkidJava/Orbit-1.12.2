@@ -42,7 +42,7 @@ public class EnchantmentHelper
      */
     public static int getEnchantmentLevel(Enchantment enchID, ItemStack stack)
     {
-        if (stack.func_190926_b())
+        if (stack.isEmpty())
         {
             return 0;
         }
@@ -126,7 +126,7 @@ public class EnchantmentHelper
      */
     private static void applyEnchantmentModifier(EnchantmentHelper.IModifier modifier, ItemStack stack)
     {
-        if (!stack.func_190926_b())
+        if (!stack.isEmpty())
         {
             NBTTagList nbttaglist = stack.getEnchantmentTagList();
 
@@ -315,7 +315,7 @@ public class EnchantmentHelper
 
         if (list.isEmpty())
         {
-            return ItemStack.field_190927_a;
+            return ItemStack.itemStack;
         }
         else
         {
@@ -323,13 +323,13 @@ public class EnchantmentHelper
 
             for (ItemStack itemstack : list)
             {
-                if (!itemstack.func_190926_b() && getEnchantmentLevel(p_92099_0_, itemstack) > 0)
+                if (!itemstack.isEmpty() && getEnchantmentLevel(p_92099_0_, itemstack) > 0)
                 {
                     list1.add(itemstack);
                 }
             }
 
-            return list1.isEmpty() ? ItemStack.field_190927_a : list1.get(p_92099_1_.getRNG().nextInt(list1.size()));
+            return list1.isEmpty() ? ItemStack.itemStack : list1.get(p_92099_1_.getRNG().nextInt(list1.size()));
         }
     }
 

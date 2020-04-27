@@ -52,7 +52,7 @@ public final class RenderUtils {
         AxisAlignedBB var12 = new AxisAlignedBB(var11.minX - entity.posX + x, var11.minY - entity.posY + y, var11.minZ - entity.posZ + z, var11.maxX - entity.posX + x, var11.maxY - entity.posY + y, var11.maxZ - entity.posZ + z);
         if (color != 0) {
             GlStateManager.disableDepth();
-            RenderUtils.filledBox(var12, colorIn);
+            //RenderUtils.filledBox(var12, colorIn);
             RenderUtils.disableLighting();
             drawOutlinedBoundingBox(var12, color);
         }
@@ -711,74 +711,38 @@ public final class RenderUtils {
         GL11.glEnd();
     }
 
-    public static void filledBox(AxisAlignedBB bb, int color) {
-        float var11 = (float) (color >> 24 & 255) / 255.0f;
-        float var6 = (float) (color >> 16 & 255) / 255.0f;
-        float var7 = (float) (color >> 8 & 255) / 255.0f;
-        float var8 = (float) (color & 255) / 255.0f;
+    public static void drawSelectionBoundingBox(AxisAlignedBB box, Color color)
+    {
+        drawBoundingBox(box.minX, box.minY, box.minZ, box.maxX, box.maxY, box.maxZ, color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
+    }
+
+    public static void drawBoundingBox(double minX, double minY, double minZ, double maxX, double maxY, double maxZ, float red, float green, float blue, float alpha)
+    {
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
-        bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
-        bufferbuilder.pos(bb.minX, bb.minY, bb.minZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.minX, bb.maxY, bb.minZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.maxX, bb.minY, bb.minZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.maxX, bb.maxY, bb.minZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.maxX, bb.minY, bb.maxZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.maxX, bb.maxY, bb.maxZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.minX, bb.minY, bb.maxZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.minX, bb.maxY, bb.maxZ).color(var6, var7, var8, var11).endVertex();
+        bufferbuilder.begin(3, DefaultVertexFormats.POSITION_COLOR);
+        drawBoundingBox(bufferbuilder, minX, minY, minZ, maxX, maxY, maxZ, red, green, blue, alpha);
         tessellator.draw();
-        bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
-        bufferbuilder.pos(bb.maxX, bb.maxY, bb.minZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.maxX, bb.minY, bb.minZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.minX, bb.maxY, bb.minZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.minX, bb.minY, bb.minZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.minX, bb.maxY, bb.maxZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.minX, bb.minY, bb.maxZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.maxX, bb.maxY, bb.maxZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.maxX, bb.minY, bb.maxZ).color(var6, var7, var8, var11).endVertex();
-        tessellator.draw();
-        bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
-        bufferbuilder.pos(bb.minX, bb.maxY, bb.minZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.maxX, bb.maxY, bb.minZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.maxX, bb.maxY, bb.maxZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.minX, bb.maxY, bb.maxZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.minX, bb.maxY, bb.minZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.minX, bb.maxY, bb.maxZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.maxX, bb.maxY, bb.maxZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.maxX, bb.maxY, bb.minZ).color(var6, var7, var8, var11).endVertex();
-        tessellator.draw();
-        bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
-        bufferbuilder.pos(bb.minX, bb.minY, bb.minZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.maxX, bb.minY, bb.minZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.maxX, bb.minY, bb.maxZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.minX, bb.minY, bb.maxZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.minX, bb.minY, bb.minZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.minX, bb.minY, bb.maxZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.maxX, bb.minY, bb.maxZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.maxX, bb.minY, bb.minZ).color(var6, var7, var8, var11).endVertex();
-        tessellator.draw();
-        bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
-        bufferbuilder.pos(bb.minX, bb.minY, bb.minZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.minX, bb.maxY, bb.minZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.minX, bb.minY, bb.maxZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.minX, bb.maxY, bb.maxZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.maxX, bb.minY, bb.maxZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.maxX, bb.maxY, bb.maxZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.maxX, bb.minY, bb.minZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.maxX, bb.maxY, bb.minZ).color(var6, var7, var8, var11).endVertex();
-        tessellator.draw();
-        bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
-        bufferbuilder.pos(bb.minX, bb.maxY, bb.maxZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.minX, bb.minY, bb.maxZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.minX, bb.maxY, bb.minZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.minX, bb.minY, bb.minZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.maxX, bb.maxY, bb.minZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.maxX, bb.minY, bb.minZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.maxX, bb.maxY, bb.maxZ).color(var6, var7, var8, var11).endVertex();
-        bufferbuilder.pos(bb.maxX, bb.minY, bb.maxZ).color(var6, var7, var8, var11).endVertex();
-        tessellator.draw();
+    }
 
+    public static void drawBoundingBox(BufferBuilder buffer, double minX, double minY, double minZ, double maxX, double maxY, double maxZ, float red, float green, float blue, float alpha)
+    {
+        buffer.pos(minX, minY, minZ).color(red, green, blue, alpha).endVertex();
+        buffer.pos(maxX, minY, minZ).color(red, green, blue, alpha).endVertex();
+        buffer.pos(maxX, minY, maxZ).color(red, green, blue, alpha).endVertex();
+        buffer.pos(minX, minY, maxZ).color(red, green, blue, alpha).endVertex();
+        buffer.pos(minX, minY, minZ).color(red, green, blue, alpha).endVertex();
+        buffer.pos(minX, maxY, minZ).color(red, green, blue, alpha).endVertex();
+        buffer.pos(maxX, maxY, minZ).color(red, green, blue, alpha).endVertex();
+        buffer.pos(maxX, maxY, maxZ).color(red, green, blue, alpha).endVertex();
+        buffer.pos(minX, maxY, maxZ).color(red, green, blue, alpha).endVertex();
+        buffer.pos(minX, maxY, minZ).color(red, green, blue, 0.0F).endVertex();
+        buffer.pos(minX, maxY, maxZ).color(red, green, blue, alpha).endVertex();
+        buffer.pos(minX, minY, maxZ).color(red, green, blue, alpha).endVertex();
+        buffer.pos(maxX, minY, maxZ).color(red, green, blue, 0.0F).endVertex();
+        buffer.pos(maxX, maxY, maxZ).color(red, green, blue, alpha).endVertex();
+        buffer.pos(maxX, maxY, minZ).color(red, green, blue, 0.0F).endVertex();
+        buffer.pos(maxX, minY, minZ).color(red, green, blue, alpha).endVertex();
     }
 
     private static double getDiff(double lastI, double i, float ticks, double ownI) {
@@ -796,7 +760,7 @@ public final class RenderUtils {
         AxisAlignedBB var12 = new AxisAlignedBB(var11.minX - x, var11.minY - y, var11.minZ - z, var11.maxX - x, var11.maxY - y, var11.maxZ - z);
         if (color != 0) {
             GlStateManager.disableDepth();
-            RenderUtils.filledBox(var12, colorIn);
+            //RenderUtils.filledBox(var12, colorIn);
             RenderUtils.disableLighting();
             drawOutlinedBoundingBox(var12, color);
         }

@@ -69,7 +69,7 @@ public class ItemBow extends Item
                 }
             }
 
-            return ItemStack.field_190927_a;
+            return ItemStack.itemStack;
         }
     }
 
@@ -89,9 +89,9 @@ public class ItemBow extends Item
             boolean flag = entityplayer.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, stack) > 0;
             ItemStack itemstack = this.findAmmo(entityplayer);
 
-            if (!itemstack.func_190926_b() || flag)
+            if (!itemstack.isEmpty() || flag)
             {
-                if (itemstack.func_190926_b())
+                if (itemstack.isEmpty())
                 {
                     itemstack = new ItemStack(Items.ARROW);
                 }
@@ -149,7 +149,7 @@ public class ItemBow extends Item
                     {
                         itemstack.func_190918_g(1);
 
-                        if (itemstack.func_190926_b())
+                        if (itemstack.isEmpty())
                         {
                             entityplayer.inventory.deleteStack(itemstack);
                         }
@@ -196,7 +196,7 @@ public class ItemBow extends Item
     public ActionResult<ItemStack> onItemRightClick(World itemStackIn, EntityPlayer worldIn, EnumHand playerIn)
     {
         ItemStack itemstack = worldIn.getHeldItem(playerIn);
-        boolean flag = !this.findAmmo(worldIn).func_190926_b();
+        boolean flag = !this.findAmmo(worldIn).isEmpty();
 
         if (!worldIn.capabilities.isCreativeMode && !flag)
         {

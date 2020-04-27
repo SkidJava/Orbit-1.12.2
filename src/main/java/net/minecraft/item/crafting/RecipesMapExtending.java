@@ -27,9 +27,9 @@ public class RecipesMapExtending extends ShapedRecipes
         }
         else
         {
-            ItemStack itemstack = ItemStack.field_190927_a;
+            ItemStack itemstack = ItemStack.itemStack;
 
-            for (int i = 0; i < inv.getSizeInventory() && itemstack.func_190926_b(); ++i)
+            for (int i = 0; i < inv.getSizeInventory() && itemstack.isEmpty(); ++i)
             {
                 ItemStack itemstack1 = inv.getStackInSlot(i);
 
@@ -39,7 +39,7 @@ public class RecipesMapExtending extends ShapedRecipes
                 }
             }
 
-            if (itemstack.func_190926_b())
+            if (itemstack.isEmpty())
             {
                 return false;
             }
@@ -84,9 +84,9 @@ public class RecipesMapExtending extends ShapedRecipes
      */
     public ItemStack getCraftingResult(InventoryCrafting inv)
     {
-        ItemStack itemstack = ItemStack.field_190927_a;
+        ItemStack itemstack = ItemStack.itemStack;
 
-        for (int i = 0; i < inv.getSizeInventory() && itemstack.func_190926_b(); ++i)
+        for (int i = 0; i < inv.getSizeInventory() && itemstack.isEmpty(); ++i)
         {
             ItemStack itemstack1 = inv.getStackInSlot(i);
 

@@ -88,7 +88,7 @@ public class ServerRecipeBookHelper
         {
             ItemStack itemstack = this.field_194336_g.getStackInSlot(i);
 
-            if (!itemstack.func_190926_b())
+            if (!itemstack.isEmpty())
             {
                 while (itemstack.func_190916_E() > 0)
                 {
@@ -124,7 +124,7 @@ public class ServerRecipeBookHelper
             {
                 ItemStack itemstack = this.field_194336_g.getStackInSlot(j);
 
-                if (!itemstack.func_190926_b() && Math.min(i, itemstack.getMaxStackSize()) > itemstack.func_190916_E())
+                if (!itemstack.isEmpty() && Math.min(i, itemstack.getMaxStackSize()) > itemstack.func_190916_E())
                 {
                     flag1 = false;
                 }
@@ -179,7 +179,7 @@ public class ServerRecipeBookHelper
             {
                 ItemStack itemstack = this.field_194336_g.getStackInSlot(j);
 
-                if (!itemstack.func_190926_b() && i > itemstack.func_190916_E())
+                if (!itemstack.isEmpty() && i > itemstack.func_190916_E())
                 {
                     i = itemstack.func_190916_E();
                 }
@@ -222,7 +222,7 @@ public class ServerRecipeBookHelper
                 Slot slot = this.field_194337_h.get(j1);
                 ItemStack itemstack = RecipeItemHelper.func_194115_b(iterator.next().intValue());
 
-                if (itemstack.func_190926_b())
+                if (itemstack.isEmpty())
                 {
                     ++j1;
                 }
@@ -253,7 +253,7 @@ public class ServerRecipeBookHelper
         {
             ItemStack itemstack = inventoryplayer.getStackInSlot(i).copy();
 
-            if (!itemstack.func_190926_b())
+            if (!itemstack.isEmpty())
             {
                 if (itemstack.func_190916_E() > 1)
                 {
@@ -266,7 +266,7 @@ public class ServerRecipeBookHelper
 
                 itemstack.func_190920_e(1);
 
-                if (p_194325_1_.getStack().func_190926_b())
+                if (p_194325_1_.getStack().isEmpty())
                 {
                     p_194325_1_.putStack(itemstack);
                 }
@@ -286,7 +286,7 @@ public class ServerRecipeBookHelper
         {
             ItemStack itemstack = this.field_194336_g.getStackInSlot(i);
 
-            if (!itemstack.func_190926_b())
+            if (!itemstack.isEmpty())
             {
                 int j = inventoryplayer.storeItemStack(itemstack);
 

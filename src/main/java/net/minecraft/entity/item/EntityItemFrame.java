@@ -44,7 +44,7 @@ public class EntityItemFrame extends EntityHanging
 
     protected void entityInit()
     {
-        this.getDataManager().register(ITEM, ItemStack.field_190927_a);
+        this.getDataManager().register(ITEM, ItemStack.itemStack);
         this.getDataManager().register(ROTATION, Integer.valueOf(0));
     }
 
@@ -62,13 +62,13 @@ public class EntityItemFrame extends EntityHanging
         {
             return false;
         }
-        else if (!source.isExplosion() && !this.getDisplayedItem().func_190926_b())
+        else if (!source.isExplosion() && !this.getDisplayedItem().isEmpty())
         {
             if (!this.world.isRemote)
             {
                 this.dropItemOrSelf(source.getEntity(), false);
                 this.playSound(SoundEvents.ENTITY_ITEMFRAME_REMOVE_ITEM, 1.0F, 1.0F);
-                this.setDisplayedItem(ItemStack.field_190927_a);
+                this.setDisplayedItem(ItemStack.itemStack);
             }
 
             return true;
@@ -135,7 +135,7 @@ public class EntityItemFrame extends EntityHanging
                 this.entityDropItem(new ItemStack(Items.ITEM_FRAME), 0.0F);
             }
 
-            if (!itemstack.func_190926_b() && this.rand.nextFloat() < this.itemDropChance)
+            if (!itemstack.isEmpty() && this.rand.nextFloat() < this.itemDropChance)
             {
                 itemstack = itemstack.copy();
                 this.removeFrameFromMap(itemstack);
@@ -149,7 +149,7 @@ public class EntityItemFrame extends EntityHanging
      */
     private void removeFrameFromMap(ItemStack stack)
     {
-        if (!stack.func_190926_b())
+        if (!stack.isEmpty())
         {
             if (stack.getItem() == Items.FILLED_MAP)
             {
@@ -173,7 +173,7 @@ public class EntityItemFrame extends EntityHanging
 
     private void setDisplayedItemWithUpdate(ItemStack stack, boolean p_174864_2_)
     {
-        if (!stack.func_190926_b())
+        if (!stack.isEmpty())
         {
             stack = stack.copy();
             stack.func_190920_e(1);
@@ -183,7 +183,7 @@ public class EntityItemFrame extends EntityHanging
         this.getDataManager().set(ITEM, stack);
         this.getDataManager().setDirty(ITEM);
 
-        if (!stack.func_190926_b())
+        if (!stack.isEmpty())
         {
             this.playSound(SoundEvents.ENTITY_ITEMFRAME_ADD_ITEM, 1.0F, 1.0F);
         }
@@ -200,7 +200,7 @@ public class EntityItemFrame extends EntityHanging
         {
             ItemStack itemstack = this.getDisplayedItem();
 
-            if (!itemstack.func_190926_b() && itemstack.getItemFrame() != this)
+            if (!itemstack.isEmpty() && itemstack.getItemFrame() != this)
             {
                 itemstack.setItemFrame(this);
             }
@@ -240,7 +240,7 @@ public class EntityItemFrame extends EntityHanging
      */
     public void writeEntityToNBT(NBTTagCompound compound)
     {
-        if (!this.getDisplayedItem().func_190926_b())
+        if (!this.getDisplayedItem().isEmpty())
         {
             compound.setTag("Item", this.getDisplayedItem().writeToNBT(new NBTTagCompound()));
             compound.setByte("ItemRotation", (byte)this.getRotation());
@@ -277,9 +277,9 @@ public class EntityItemFrame extends EntityHanging
 
         if (!this.world.isRemote)
         {
-            if (this.getDisplayedItem().func_190926_b())
+            if (this.getDisplayedItem().isEmpty())
             {
-                if (!itemstack.func_190926_b())
+                if (!itemstack.isEmpty())
                 {
                     this.setDisplayedItem(itemstack);
 
@@ -301,6 +301,6 @@ public class EntityItemFrame extends EntityHanging
 
     public int getAnalogOutput()
     {
-        return this.getDisplayedItem().func_190926_b() ? 0 : this.getRotation() % 8 + 1;
+        return this.getDisplayedItem().isEmpty() ? 0 : this.getRotation() % 8 + 1;
     }
 }

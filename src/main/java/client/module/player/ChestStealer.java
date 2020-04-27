@@ -26,7 +26,8 @@ public class ChestStealer extends Module {
         int i = 0;
         PlayerUtil.tellPlayer("ChestSize: " + container.inventorySlots.size());
         for (int slotAmount = container.inventorySlots.size(); i < slotAmount; i++) { // int slotAmount = (container.inventorySlots.size() == 90 ? 54 : 27)
-            if (container.getInventory().get(i) != null) {
+            System.out.println(container.getInventory().get(i).isEmpty());
+            if (!container.getInventory().get(i).isEmpty()) {
                 PlayerUtil.tellPlayer("Position: "+i);
                 return i;
             }

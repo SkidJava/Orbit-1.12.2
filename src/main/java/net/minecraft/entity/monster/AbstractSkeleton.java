@@ -123,7 +123,7 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
                 boolean flag = true;
                 ItemStack itemstack = this.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
 
-                if (!itemstack.func_190926_b())
+                if (!itemstack.isEmpty())
                 {
                     if (itemstack.isItemStackDamageable())
                     {
@@ -132,7 +132,7 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
                         if (itemstack.getItemDamage() >= itemstack.getMaxDamage())
                         {
                             this.renderBrokenItemStack(itemstack);
-                            this.setItemStackToSlot(EntityEquipmentSlot.HEAD, ItemStack.field_190927_a);
+                            this.setItemStackToSlot(EntityEquipmentSlot.HEAD, ItemStack.itemStack);
                         }
                     }
 
@@ -186,7 +186,7 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
         this.setCombatTask();
         this.setCanPickUpLoot(this.rand.nextFloat() < 0.55F * difficulty.getClampedAdditionalDifficulty());
 
-        if (this.getItemStackFromSlot(EntityEquipmentSlot.HEAD).func_190926_b())
+        if (this.getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty())
         {
             Calendar calendar = this.world.getCurrentDate();
 

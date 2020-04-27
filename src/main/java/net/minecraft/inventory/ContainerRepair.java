@@ -79,25 +79,25 @@ public class ContainerRepair extends Container
                     p_190901_1_.addExperienceLevel(-ContainerRepair.this.maximumCost);
                 }
 
-                ContainerRepair.this.inputSlots.setInventorySlotContents(0, ItemStack.field_190927_a);
+                ContainerRepair.this.inputSlots.setInventorySlotContents(0, ItemStack.itemStack);
 
                 if (ContainerRepair.this.materialCost > 0)
                 {
                     ItemStack itemstack = ContainerRepair.this.inputSlots.getStackInSlot(1);
 
-                    if (!itemstack.func_190926_b() && itemstack.func_190916_E() > ContainerRepair.this.materialCost)
+                    if (!itemstack.isEmpty() && itemstack.func_190916_E() > ContainerRepair.this.materialCost)
                     {
                         itemstack.func_190918_g(ContainerRepair.this.materialCost);
                         ContainerRepair.this.inputSlots.setInventorySlotContents(1, itemstack);
                     }
                     else
                     {
-                        ContainerRepair.this.inputSlots.setInventorySlotContents(1, ItemStack.field_190927_a);
+                        ContainerRepair.this.inputSlots.setInventorySlotContents(1, ItemStack.itemStack);
                     }
                 }
                 else
                 {
-                    ContainerRepair.this.inputSlots.setInventorySlotContents(1, ItemStack.field_190927_a);
+                    ContainerRepair.this.inputSlots.setInventorySlotContents(1, ItemStack.itemStack);
                 }
 
                 ContainerRepair.this.maximumCost = 0;
@@ -166,9 +166,9 @@ public class ContainerRepair extends Container
         int j = 0;
         int k = 0;
 
-        if (itemstack.func_190926_b())
+        if (itemstack.isEmpty())
         {
-            this.outputSlot.setInventorySlotContents(0, ItemStack.field_190927_a);
+            this.outputSlot.setInventorySlotContents(0, ItemStack.itemStack);
             this.maximumCost = 0;
         }
         else
@@ -176,10 +176,10 @@ public class ContainerRepair extends Container
             ItemStack itemstack1 = itemstack.copy();
             ItemStack itemstack2 = this.inputSlots.getStackInSlot(1);
             Map<Enchantment, Integer> map = EnchantmentHelper.getEnchantments(itemstack1);
-            j = j + itemstack.getRepairCost() + (itemstack2.func_190926_b() ? 0 : itemstack2.getRepairCost());
+            j = j + itemstack.getRepairCost() + (itemstack2.isEmpty() ? 0 : itemstack2.getRepairCost());
             this.materialCost = 0;
 
-            if (!itemstack2.func_190926_b())
+            if (!itemstack2.isEmpty())
             {
                 boolean flag = itemstack2.getItem() == Items.ENCHANTED_BOOK && !ItemEnchantedBook.getEnchantments(itemstack2).hasNoTags();
 
@@ -189,7 +189,7 @@ public class ContainerRepair extends Container
 
                     if (l2 <= 0)
                     {
-                        this.outputSlot.setInventorySlotContents(0, ItemStack.field_190927_a);
+                        this.outputSlot.setInventorySlotContents(0, ItemStack.itemStack);
                         this.maximumCost = 0;
                         return;
                     }
@@ -210,7 +210,7 @@ public class ContainerRepair extends Container
                 {
                     if (!flag && (itemstack1.getItem() != itemstack2.getItem() || !itemstack1.isItemStackDamageable()))
                     {
-                        this.outputSlot.setInventorySlotContents(0, ItemStack.field_190927_a);
+                        this.outputSlot.setInventorySlotContents(0, ItemStack.itemStack);
                         this.maximumCost = 0;
                         return;
                     }
@@ -313,7 +313,7 @@ public class ContainerRepair extends Container
 
                     if (flag3 && !flag2)
                     {
-                        this.outputSlot.setInventorySlotContents(0, ItemStack.field_190927_a);
+                        this.outputSlot.setInventorySlotContents(0, ItemStack.itemStack);
                         this.maximumCost = 0;
                         return;
                     }
@@ -340,7 +340,7 @@ public class ContainerRepair extends Container
 
             if (i <= 0)
             {
-                itemstack1 = ItemStack.field_190927_a;
+                itemstack1 = ItemStack.itemStack;
             }
 
             if (k == i && k > 0 && this.maximumCost >= 40)
@@ -350,14 +350,14 @@ public class ContainerRepair extends Container
 
             if (this.maximumCost >= 40 && !this.thePlayer.capabilities.isCreativeMode)
             {
-                itemstack1 = ItemStack.field_190927_a;
+                itemstack1 = ItemStack.itemStack;
             }
 
-            if (!itemstack1.func_190926_b())
+            if (!itemstack1.isEmpty())
             {
                 int k2 = itemstack1.getRepairCost();
 
-                if (!itemstack2.func_190926_b() && k2 < itemstack2.getRepairCost())
+                if (!itemstack2.isEmpty() && k2 < itemstack2.getRepairCost())
                 {
                     k2 = itemstack2.getRepairCost();
                 }
@@ -423,7 +423,7 @@ public class ContainerRepair extends Container
      */
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
     {
-        ItemStack itemstack = ItemStack.field_190927_a;
+        ItemStack itemstack = ItemStack.itemStack;
         Slot slot = this.inventorySlots.get(index);
 
         if (slot != null && slot.getHasStack())
@@ -435,7 +435,7 @@ public class ContainerRepair extends Container
             {
                 if (!this.mergeItemStack(itemstack1, 3, 39, true))
                 {
-                    return ItemStack.field_190927_a;
+                    return ItemStack.itemStack;
                 }
 
                 slot.onSlotChange(itemstack1, itemstack);
@@ -444,17 +444,17 @@ public class ContainerRepair extends Container
             {
                 if (index >= 3 && index < 39 && !this.mergeItemStack(itemstack1, 0, 2, false))
                 {
-                    return ItemStack.field_190927_a;
+                    return ItemStack.itemStack;
                 }
             }
             else if (!this.mergeItemStack(itemstack1, 3, 39, false))
             {
-                return ItemStack.field_190927_a;
+                return ItemStack.itemStack;
             }
 
-            if (itemstack1.func_190926_b())
+            if (itemstack1.isEmpty())
             {
-                slot.putStack(ItemStack.field_190927_a);
+                slot.putStack(ItemStack.itemStack);
             }
             else
             {
@@ -463,7 +463,7 @@ public class ContainerRepair extends Container
 
             if (itemstack1.func_190916_E() == itemstack.func_190916_E())
             {
-                return ItemStack.field_190927_a;
+                return ItemStack.itemStack;
             }
 
             slot.func_190901_a(playerIn, itemstack1);

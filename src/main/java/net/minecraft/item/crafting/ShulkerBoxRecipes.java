@@ -22,7 +22,7 @@ public class ShulkerBoxRecipes
             {
                 ItemStack itemstack = inv.getStackInSlot(k);
 
-                if (!itemstack.func_190926_b())
+                if (!itemstack.isEmpty())
                 {
                     if (Block.getBlockFromItem(itemstack.getItem()) instanceof BlockShulkerBox)
                     {
@@ -50,14 +50,14 @@ public class ShulkerBoxRecipes
 
         public ItemStack getCraftingResult(InventoryCrafting inv)
         {
-            ItemStack itemstack = ItemStack.field_190927_a;
-            ItemStack itemstack1 = ItemStack.field_190927_a;
+            ItemStack itemstack = ItemStack.itemStack;
+            ItemStack itemstack1 = ItemStack.itemStack;
 
             for (int i = 0; i < inv.getSizeInventory(); ++i)
             {
                 ItemStack itemstack2 = inv.getStackInSlot(i);
 
-                if (!itemstack2.func_190926_b())
+                if (!itemstack2.isEmpty())
                 {
                     if (Block.getBlockFromItem(itemstack2.getItem()) instanceof BlockShulkerBox)
                     {
@@ -82,12 +82,12 @@ public class ShulkerBoxRecipes
 
         public ItemStack getRecipeOutput()
         {
-            return ItemStack.field_190927_a;
+            return ItemStack.itemStack;
         }
 
         public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv)
         {
-            NonNullList<ItemStack> nonnulllist = NonNullList.func_191197_a(inv.getSizeInventory(), ItemStack.field_190927_a);
+            NonNullList<ItemStack> nonnulllist = NonNullList.func_191197_a(inv.getSizeInventory(), ItemStack.itemStack);
 
             for (int i = 0; i < nonnulllist.size(); ++i)
             {

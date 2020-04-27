@@ -47,7 +47,7 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 
     public TileEntityShulkerBox(@Nullable EnumDyeColor p_i47242_1_)
     {
-        this.field_190596_f = NonNullList.func_191197_a(27, ItemStack.field_190927_a);
+        this.field_190596_f = NonNullList.func_191197_a(27, ItemStack.itemStack);
         this.field_190599_i = TileEntityShulkerBox.AnimationStatus.CLOSED;
         this.field_190602_l = p_i47242_1_;
     }
@@ -305,7 +305,7 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 
     public void func_190586_e(NBTTagCompound p_190586_1_)
     {
-        this.field_190596_f = NonNullList.func_191197_a(this.getSizeInventory(), ItemStack.field_190927_a);
+        this.field_190596_f = NonNullList.func_191197_a(this.getSizeInventory(), ItemStack.itemStack);
 
         if (!this.checkLootAndRead(p_190586_1_) && p_190586_1_.hasKey("Items", 9))
         {
@@ -347,7 +347,7 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
     {
         for (ItemStack itemstack : this.field_190596_f)
         {
-            if (!itemstack.func_190926_b())
+            if (!itemstack.isEmpty())
             {
                 return false;
             }

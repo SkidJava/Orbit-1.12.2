@@ -70,7 +70,7 @@ public class ContainerMerchant extends Container
      */
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
     {
-        ItemStack itemstack = ItemStack.field_190927_a;
+        ItemStack itemstack = ItemStack.itemStack;
         Slot slot = this.inventorySlots.get(index);
 
         if (slot != null && slot.getHasStack())
@@ -82,7 +82,7 @@ public class ContainerMerchant extends Container
             {
                 if (!this.mergeItemStack(itemstack1, 3, 39, true))
                 {
-                    return ItemStack.field_190927_a;
+                    return ItemStack.itemStack;
                 }
 
                 slot.onSlotChange(itemstack1, itemstack);
@@ -93,22 +93,22 @@ public class ContainerMerchant extends Container
                 {
                     if (!this.mergeItemStack(itemstack1, 30, 39, false))
                     {
-                        return ItemStack.field_190927_a;
+                        return ItemStack.itemStack;
                     }
                 }
                 else if (index >= 30 && index < 39 && !this.mergeItemStack(itemstack1, 3, 30, false))
                 {
-                    return ItemStack.field_190927_a;
+                    return ItemStack.itemStack;
                 }
             }
             else if (!this.mergeItemStack(itemstack1, 3, 39, false))
             {
-                return ItemStack.field_190927_a;
+                return ItemStack.itemStack;
             }
 
-            if (itemstack1.func_190926_b())
+            if (itemstack1.isEmpty())
             {
-                slot.putStack(ItemStack.field_190927_a);
+                slot.putStack(ItemStack.itemStack);
             }
             else
             {
@@ -117,7 +117,7 @@ public class ContainerMerchant extends Container
 
             if (itemstack1.func_190916_E() == itemstack.func_190916_E())
             {
-                return ItemStack.field_190927_a;
+                return ItemStack.itemStack;
             }
 
             slot.func_190901_a(playerIn, itemstack1);
@@ -139,14 +139,14 @@ public class ContainerMerchant extends Container
         {
             ItemStack itemstack = this.merchantInventory.removeStackFromSlot(0);
 
-            if (!itemstack.func_190926_b())
+            if (!itemstack.isEmpty())
             {
                 playerIn.dropItem(itemstack, false);
             }
 
             itemstack = this.merchantInventory.removeStackFromSlot(1);
 
-            if (!itemstack.func_190926_b())
+            if (!itemstack.isEmpty())
             {
                 playerIn.dropItem(itemstack, false);
             }

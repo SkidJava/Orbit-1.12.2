@@ -300,6 +300,6 @@ public class EntityZombieVillager extends EntityZombie
 
     protected ItemStack func_190732_dj()
     {
-        return ItemStack.field_190927_a;
+        return ItemStack.itemStack;
     }
 }

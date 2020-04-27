@@ -3,7 +3,6 @@ package net.minecraft.block;
 import java.util.Random;
 import javax.annotation.Nullable;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -202,7 +201,7 @@ public class BlockDoublePlant extends BlockBush implements IGrowable
                     {
                         worldIn.setBlockToAir(pos.down());
                     }
-                    else if (!player.getHeldItemMainhand().func_190926_b() && player.getHeldItemMainhand().getItem() == Items.SHEARS)
+                    else if (!player.getHeldItemMainhand().isEmpty() && player.getHeldItemMainhand().getItem() == Items.SHEARS)
                     {
                         this.onHarvest(worldIn, pos, iblockstate, player);
                         worldIn.setBlockToAir(pos.down());

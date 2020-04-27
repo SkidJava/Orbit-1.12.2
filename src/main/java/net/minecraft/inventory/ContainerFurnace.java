@@ -97,7 +97,7 @@ public class ContainerFurnace extends Container
      */
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
     {
-        ItemStack itemstack = ItemStack.field_190927_a;
+        ItemStack itemstack = ItemStack.itemStack;
         Slot slot = this.inventorySlots.get(index);
 
         if (slot != null && slot.getHasStack())
@@ -109,47 +109,47 @@ public class ContainerFurnace extends Container
             {
                 if (!this.mergeItemStack(itemstack1, 3, 39, true))
                 {
-                    return ItemStack.field_190927_a;
+                    return ItemStack.itemStack;
                 }
 
                 slot.onSlotChange(itemstack1, itemstack);
             }
             else if (index != 1 && index != 0)
             {
-                if (!FurnaceRecipes.instance().getSmeltingResult(itemstack1).func_190926_b())
+                if (!FurnaceRecipes.instance().getSmeltingResult(itemstack1).isEmpty())
                 {
                     if (!this.mergeItemStack(itemstack1, 0, 1, false))
                     {
-                        return ItemStack.field_190927_a;
+                        return ItemStack.itemStack;
                     }
                 }
                 else if (TileEntityFurnace.isItemFuel(itemstack1))
                 {
                     if (!this.mergeItemStack(itemstack1, 1, 2, false))
                     {
-                        return ItemStack.field_190927_a;
+                        return ItemStack.itemStack;
                     }
                 }
                 else if (index >= 3 && index < 30)
                 {
                     if (!this.mergeItemStack(itemstack1, 30, 39, false))
                     {
-                        return ItemStack.field_190927_a;
+                        return ItemStack.itemStack;
                     }
                 }
                 else if (index >= 30 && index < 39 && !this.mergeItemStack(itemstack1, 3, 30, false))
                 {
-                    return ItemStack.field_190927_a;
+                    return ItemStack.itemStack;
                 }
             }
             else if (!this.mergeItemStack(itemstack1, 3, 39, false))
             {
-                return ItemStack.field_190927_a;
+                return ItemStack.itemStack;
             }
 
-            if (itemstack1.func_190926_b())
+            if (itemstack1.isEmpty())
             {
-                slot.putStack(ItemStack.field_190927_a);
+                slot.putStack(ItemStack.itemStack);
             }
             else
             {
@@ -158,7 +158,7 @@ public class ContainerFurnace extends Container
 
             if (itemstack1.func_190916_E() == itemstack.func_190916_E())
             {
-                return ItemStack.field_190927_a;
+                return ItemStack.itemStack;
             }
 
             slot.func_190901_a(playerIn, itemstack1);

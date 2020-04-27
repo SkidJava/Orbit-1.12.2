@@ -8,7 +8,6 @@ import java.util.Map;
 import javax.annotation.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.achievement.GuiStats;
@@ -100,13 +99,13 @@ public class GuiContainerCreative extends InventoryEffectRenderer
         {
             InventoryPlayer inventoryplayer1 = this.mc.thePlayer.inventory;
 
-            if (!inventoryplayer1.getItemStack().func_190926_b())
+            if (!inventoryplayer1.getItemStack().isEmpty())
             {
                 if (mouseButton == 0)
                 {
                     this.mc.thePlayer.dropItem(inventoryplayer1.getItemStack(), true);
                     this.mc.playerController.sendPacketDropItem(inventoryplayer1.getItemStack());
-                    inventoryplayer1.setItemStack(ItemStack.field_190927_a);
+                    inventoryplayer1.setItemStack(ItemStack.itemStack);
                 }
 
                 if (mouseButton == 1)
@@ -128,14 +127,14 @@ public class GuiContainerCreative extends InventoryEffectRenderer
             {
                 for (int j = 0; j < this.mc.thePlayer.inventoryContainer.getInventory().size(); ++j)
                 {
-                    this.mc.playerController.sendSlotPacket(ItemStack.field_190927_a, j);
+                    this.mc.playerController.sendSlotPacket(ItemStack.itemStack, j);
                 }
             }
             else if (selectedTabIndex == CreativeTabs.INVENTORY.getTabIndex())
             {
                 if (slotIn == this.destroyItemSlot)
                 {
-                    this.mc.thePlayer.inventory.setItemStack(ItemStack.field_190927_a);
+                    this.mc.thePlayer.inventory.setItemStack(ItemStack.itemStack);
                 }
                 else if (type == ClickType.THROW && slotIn != null && slotIn.getHasStack())
                 {
@@ -145,11 +144,11 @@ public class GuiContainerCreative extends InventoryEffectRenderer
                     this.mc.playerController.sendPacketDropItem(itemstack);
                     this.mc.playerController.sendSlotPacket(itemstack1, ((GuiContainerCreative.CreativeSlot)slotIn).slot.slotNumber);
                 }
-                else if (type == ClickType.THROW && !this.mc.thePlayer.inventory.getItemStack().func_190926_b())
+                else if (type == ClickType.THROW && !this.mc.thePlayer.inventory.getItemStack().isEmpty())
                 {
                     this.mc.thePlayer.dropItem(this.mc.thePlayer.inventory.getItemStack(), true);
                     this.mc.playerController.sendPacketDropItem(this.mc.thePlayer.inventory.getItemStack());
-                    this.mc.thePlayer.inventory.setItemStack(ItemStack.field_190927_a);
+                    this.mc.thePlayer.inventory.setItemStack(ItemStack.itemStack);
                 }
                 else
                 {
@@ -165,7 +164,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer
 
                 if (type == ClickType.SWAP)
                 {
-                    if (!itemstack7.func_190926_b() && mouseButton >= 0 && mouseButton < 9)
+                    if (!itemstack7.isEmpty() && mouseButton >= 0 && mouseButton < 9)
                     {
                         ItemStack itemstack10 = itemstack7.copy();
                         itemstack10.func_190920_e(itemstack10.getMaxStackSize());
@@ -178,7 +177,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer
 
                 if (type == ClickType.CLONE)
                 {
-                    if (inventoryplayer.getItemStack().func_190926_b() && slotIn.getHasStack())
+                    if (inventoryplayer.getItemStack().isEmpty() && slotIn.getHasStack())
                     {
                         ItemStack itemstack9 = slotIn.getStack().copy();
                         itemstack9.func_190920_e(itemstack9.getMaxStackSize());
@@ -190,7 +189,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer
 
                 if (type == ClickType.THROW)
                 {
-                    if (!itemstack7.func_190926_b())
+                    if (!itemstack7.isEmpty())
                     {
                         ItemStack itemstack8 = itemstack7.copy();
                         itemstack8.func_190920_e(mouseButton == 0 ? 1 : itemstack8.getMaxStackSize());
@@ -201,7 +200,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer
                     return;
                 }
 
-                if (!itemstack5.func_190926_b() && !itemstack7.func_190926_b() && itemstack5.isItemEqual(itemstack7) && ItemStack.areItemStackTagsEqual(itemstack5, itemstack7))
+                if (!itemstack5.isEmpty() && !itemstack7.isEmpty() && itemstack5.isItemEqual(itemstack7) && ItemStack.areItemStackTagsEqual(itemstack5, itemstack7))
                 {
                     if (mouseButton == 0)
                     {
@@ -219,7 +218,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer
                         itemstack5.func_190918_g(1);
                     }
                 }
-                else if (!itemstack7.func_190926_b() && itemstack5.func_190926_b())
+                else if (!itemstack7.isEmpty() && itemstack5.isEmpty())
                 {
                     inventoryplayer.setItemStack(itemstack7.copy());
                     itemstack5 = inventoryplayer.getItemStack();
@@ -231,7 +230,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer
                 }
                 else if (mouseButton == 0)
                 {
-                    inventoryplayer.setItemStack(ItemStack.field_190927_a);
+                    inventoryplayer.setItemStack(ItemStack.itemStack);
                 }
                 else
                 {
@@ -240,7 +239,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer
             }
             else if (this.inventorySlots != null)
             {
-                ItemStack itemstack3 = slotIn == null ? ItemStack.field_190927_a : this.inventorySlots.getSlot(slotIn.slotNumber).getStack();
+                ItemStack itemstack3 = slotIn == null ? ItemStack.itemStack : this.inventorySlots.getSlot(slotIn.slotNumber).getStack();
                 this.inventorySlots.slotClick(slotIn == null ? slotId : slotIn.slotNumber, mouseButton, type, this.mc.thePlayer);
 
                 if (Container.getDragEvent(mouseButton) == 2)
@@ -260,7 +259,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer
                     {
                         this.mc.playerController.sendSlotPacket(itemstack3, i - this.inventorySlots.inventorySlots.size() + 9 + 36);
                     }
-                    else if (type == ClickType.THROW && !itemstack3.func_190926_b())
+                    else if (type == ClickType.THROW && !itemstack3.isEmpty())
                     {
                         ItemStack itemstack2 = itemstack3.copy();
                         itemstack2.func_190920_e(mouseButton == 0 ? 1 : itemstack2.getMaxStackSize());
@@ -487,7 +486,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer
                         }
                         else
                         {
-                            guicontainercreative$containercreative.itemList.add(ItemStack.field_190927_a);
+                            guicontainercreative$containercreative.itemList.add(ItemStack.itemStack);
                         }
                     }
                 }
@@ -983,7 +982,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer
                     }
                     else
                     {
-                        GuiContainerCreative.basicInventory.setInventorySlotContents(l + k * 9, ItemStack.field_190927_a);
+                        GuiContainerCreative.basicInventory.setInventorySlotContents(l + k * 9, ItemStack.itemStack);
                     }
                 }
             }
@@ -1002,11 +1001,11 @@ public class GuiContainerCreative extends InventoryEffectRenderer
 
                 if (slot != null && slot.getHasStack())
                 {
-                    slot.putStack(ItemStack.field_190927_a);
+                    slot.putStack(ItemStack.itemStack);
                 }
             }
 
-            return ItemStack.field_190927_a;
+            return ItemStack.itemStack;
         }
 
         public boolean canMergeSlot(ItemStack stack, Slot slotIn)

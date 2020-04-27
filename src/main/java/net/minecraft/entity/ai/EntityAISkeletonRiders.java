@@ -1,7 +1,6 @@
 package net.minecraft.entity.ai;
 
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.passive.AbstractHorse;
@@ -72,7 +71,7 @@ public class EntityAISkeletonRiders extends EntityAIBase
         entityskeleton.hurtResistantTime = 60;
         entityskeleton.enablePersistence();
 
-        if (entityskeleton.getItemStackFromSlot(EntityEquipmentSlot.HEAD).func_190926_b())
+        if (entityskeleton.getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty())
         {
             entityskeleton.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.IRON_HELMET));
         }

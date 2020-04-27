@@ -32,7 +32,7 @@ public class ItemKnowledgeBook extends Item
 
         if (!worldIn.capabilities.isCreativeMode)
         {
-            worldIn.setHeldItem(playerIn, ItemStack.field_190927_a);
+            worldIn.setHeldItem(playerIn, ItemStack.itemStack);
         }
 
         if (nbttagcompound != null && nbttagcompound.hasKey("Recipes", 9))

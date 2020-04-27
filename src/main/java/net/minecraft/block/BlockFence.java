@@ -4,7 +4,6 @@ import java.util.List;
 import javax.annotation.Nullable;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
@@ -164,7 +163,7 @@ public class BlockFence extends Block
         else
         {
             ItemStack itemstack = playerIn.getHeldItem(hand);
-            return itemstack.getItem() == Items.LEAD || itemstack.func_190926_b();
+            return itemstack.getItem() == Items.LEAD || itemstack.isEmpty();
         }
     }
 

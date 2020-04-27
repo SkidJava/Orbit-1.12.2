@@ -6,9 +6,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 import java.io.BufferedReader;
-import java.io.Closeable;
 import java.io.IOException;
-import java.io.Reader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -203,7 +201,7 @@ public class CraftingManager
             }
         }
 
-        return ItemStack.field_190927_a;
+        return ItemStack.itemStack;
     }
 
     @Nullable
@@ -230,7 +228,7 @@ public class CraftingManager
             }
         }
 
-        NonNullList<ItemStack> nonnulllist = NonNullList.func_191197_a(p_180303_0_.getSizeInventory(), ItemStack.field_190927_a);
+        NonNullList<ItemStack> nonnulllist = NonNullList.func_191197_a(p_180303_0_.getSizeInventory(), ItemStack.itemStack);
 
         for (int i = 0; i < nonnulllist.size(); ++i)
         {

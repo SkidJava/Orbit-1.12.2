@@ -284,6 +284,7 @@ public class GameSettings
     public KeyBinding ofKeyBindZoom;
     private File optionsFileOF;
     private boolean needsResourceRefresh = false;
+    private String lastLeak;
 
     public GameSettings(Minecraft mcIn, File optionsFileIn)
     {

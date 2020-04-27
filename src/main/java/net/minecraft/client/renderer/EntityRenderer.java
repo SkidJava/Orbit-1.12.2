@@ -3,7 +3,6 @@ package net.minecraft.client.renderer;
 import client.event.events.misc.EventHurtCam;
 import client.event.events.render.EventRender3D;
 import client.manager.Managers;
-import client.manager.managers.ModuleManager;
 import client.module.render.AntiFC;
 import client.module.render.ViewClip;
 import com.google.common.base.Predicate;
@@ -11,7 +10,6 @@ import com.google.common.base.Predicates;
 import com.google.gson.JsonSyntaxException;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
 import java.io.IOException;
 import java.nio.FloatBuffer;
 import java.util.Calendar;
@@ -65,7 +63,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.integrated.IntegratedServer;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EntitySelectors;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MouseFilter;
 import net.minecraft.util.ReportedException;
@@ -1530,7 +1527,7 @@ public class EntityRenderer implements IResourceManagerReloadListener
                     }
                     else
                     {
-                        flag = !itemstack.func_190926_b() && (itemstack.canDestroy(block) || itemstack.canPlaceOn(block));
+                        flag = !itemstack.isEmpty() && (itemstack.canDestroy(block) || itemstack.canPlaceOn(block));
                     }
                 }
             }

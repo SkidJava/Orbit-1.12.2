@@ -1,10 +1,10 @@
 package net.minecraft.init;
 
 import com.mojang.authlib.GameProfile;
-import java.io.File;
+
 import java.io.PrintStream;
 import java.util.Random;
-import java.util.UUID;
+
 import net.minecraft.advancements.AdvancementManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
@@ -30,8 +30,6 @@ import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.entity.item.EntityExpBottle;
 import net.minecraft.entity.item.EntityFireworkRocket;
 import net.minecraft.entity.item.EntityTNTPrimed;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.entity.projectile.EntityEgg;
 import net.minecraft.entity.projectile.EntityPotion;
@@ -296,7 +294,7 @@ public class Bootstrap
                 world.setBlockToAir(blockpos);
                 stack.func_190918_g(1);
 
-                if (stack.func_190926_b())
+                if (stack.isEmpty())
                 {
                     return new ItemStack(item);
                 }
@@ -441,7 +439,7 @@ public class Bootstrap
                         stack.func_190918_g(1);
                     }
                 }
-                else if (ItemArmor.dispenseArmor(source, stack).func_190926_b())
+                else if (ItemArmor.dispenseArmor(source, stack).isEmpty())
                 {
                     this.field_190911_b = false;
                 }
@@ -471,7 +469,7 @@ public class Bootstrap
                 {
                     ItemStack itemstack = ItemArmor.dispenseArmor(source, stack);
 
-                    if (itemstack.func_190926_b())
+                    if (itemstack.isEmpty())
                     {
                         this.field_190911_b = false;
                     }

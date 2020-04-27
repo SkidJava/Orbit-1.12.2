@@ -69,7 +69,7 @@ public class AutoArmor extends Module {
 
         for (int i = 0; i < 45; i++) {
             ItemStack item = mc.thePlayer.inventoryContainer.getSlot(i).getStack();
-            if (Item.getIdFromItem(item.getItem()) == 0) continue;
+            if (item.isEmpty()) continue;
 
             if(isArmor(Item.getIdFromItem(item.getItem()))) {
                 if (bestArmor == -1) {
@@ -87,7 +87,7 @@ public class AutoArmor extends Module {
 
         if(bestArmor > 8) {
             ItemStack item = mc.thePlayer.inventory.armorInventory.get(currentTarget.getID());
-            if(Item.getIdFromItem(item.getItem()) != 0) mc.playerController.windowClick(0, currentTarget.getSlotID(), 0, ClickType.QUICK_MOVE, mc.thePlayer);
+            if(item.isEmpty()) mc.playerController.windowClick(0, currentTarget.getSlotID(), 0, ClickType.QUICK_MOVE, mc.thePlayer);
             else {
                 mc.playerController.windowClick(0, bestArmor, 0, ClickType.QUICK_MOVE, mc.thePlayer);
                 currentTarget = getArmorType(currentTarget.getID() + 1 % 4);

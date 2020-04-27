@@ -9,7 +9,7 @@ import net.minecraft.network.play.INetHandlerPlayServer;
 public class CPacketCreativeInventoryAction implements Packet<INetHandlerPlayServer>
 {
     private int slotId;
-    private ItemStack stack = ItemStack.field_190927_a;
+    private ItemStack stack = ItemStack.itemStack;
 
     public CPacketCreativeInventoryAction()
     {

@@ -387,7 +387,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
         }
         else if (packetIn.getType() == 76)
         {
-            entity = new EntityFireworkRocket(this.clientWorldController, d0, d1, d2, ItemStack.field_190927_a);
+            entity = new EntityFireworkRocket(this.clientWorldController, d0, d1, d2, ItemStack.itemStack);
         }
         else if (packetIn.getType() == 63)
         {
@@ -424,7 +424,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
         }
         else if (packetIn.getType() == 73)
         {
-            entity = new EntityPotion(this.clientWorldController, d0, d1, d2, ItemStack.field_190927_a);
+            entity = new EntityPotion(this.clientWorldController, d0, d1, d2, ItemStack.itemStack);
             packetIn.setData(0);
         }
         else if (packetIn.getType() == 75)
@@ -1258,11 +1258,11 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
 
             if (packetIn.getWindowId() == 0 && packetIn.getSlot() >= 36 && i < 45)
             {
-                if (!itemstack.func_190926_b())
+                if (!itemstack.isEmpty())
                 {
                     ItemStack itemstack1 = entityplayer.inventoryContainer.getSlot(i).getStack();
 
-                    if (itemstack1.func_190926_b() || itemstack1.func_190916_E() < itemstack.func_190916_E())
+                    if (itemstack1.isEmpty() || itemstack1.func_190916_E() < itemstack.func_190916_E())
                     {
                         itemstack.func_190915_d(5);
                     }

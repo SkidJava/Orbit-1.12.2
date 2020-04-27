@@ -1,6 +1,5 @@
 package net.minecraft.entity.passive;
 
-import com.google.common.base.Predicate;
 import javax.annotation.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -89,7 +88,7 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob
         compound.setInteger("Variant", this.func_190719_dM());
         compound.setInteger("Strength", this.func_190707_dL());
 
-        if (!this.horseChest.getStackInSlot(1).func_190926_b())
+        if (!this.horseChest.getStackInSlot(1).isEmpty())
         {
             compound.setTag("DecorItem", this.horseChest.getStackInSlot(1).writeToNBT(new NBTTagCompound()));
         }

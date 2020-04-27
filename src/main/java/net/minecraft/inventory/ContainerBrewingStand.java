@@ -101,7 +101,7 @@ public class ContainerBrewingStand extends Container
      */
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
     {
-        ItemStack itemstack = ItemStack.field_190927_a;
+        ItemStack itemstack = ItemStack.itemStack;
         Slot slot = this.inventorySlots.get(index);
 
         if (slot != null && slot.getHasStack())
@@ -115,55 +115,55 @@ public class ContainerBrewingStand extends Container
                 {
                     if (!this.mergeItemStack(itemstack1, 3, 4, false))
                     {
-                        return ItemStack.field_190927_a;
+                        return ItemStack.itemStack;
                     }
                 }
                 else if (ContainerBrewingStand.Potion.canHoldPotion(itemstack) && itemstack.func_190916_E() == 1)
                 {
                     if (!this.mergeItemStack(itemstack1, 0, 3, false))
                     {
-                        return ItemStack.field_190927_a;
+                        return ItemStack.itemStack;
                     }
                 }
                 else if (ContainerBrewingStand.Fuel.isValidBrewingFuel(itemstack))
                 {
                     if (!this.mergeItemStack(itemstack1, 4, 5, false))
                     {
-                        return ItemStack.field_190927_a;
+                        return ItemStack.itemStack;
                     }
                 }
                 else if (index >= 5 && index < 32)
                 {
                     if (!this.mergeItemStack(itemstack1, 32, 41, false))
                     {
-                        return ItemStack.field_190927_a;
+                        return ItemStack.itemStack;
                     }
                 }
                 else if (index >= 32 && index < 41)
                 {
                     if (!this.mergeItemStack(itemstack1, 5, 32, false))
                     {
-                        return ItemStack.field_190927_a;
+                        return ItemStack.itemStack;
                     }
                 }
                 else if (!this.mergeItemStack(itemstack1, 5, 41, false))
                 {
-                    return ItemStack.field_190927_a;
+                    return ItemStack.itemStack;
                 }
             }
             else
             {
                 if (!this.mergeItemStack(itemstack1, 5, 41, true))
                 {
-                    return ItemStack.field_190927_a;
+                    return ItemStack.itemStack;
                 }
 
                 slot.onSlotChange(itemstack1, itemstack);
             }
 
-            if (itemstack1.func_190926_b())
+            if (itemstack1.isEmpty())
             {
-                slot.putStack(ItemStack.field_190927_a);
+                slot.putStack(ItemStack.itemStack);
             }
             else
             {
@@ -172,7 +172,7 @@ public class ContainerBrewingStand extends Container
 
             if (itemstack1.func_190916_E() == itemstack.func_190916_E())
             {
-                return ItemStack.field_190927_a;
+                return ItemStack.itemStack;
             }
 
             slot.func_190901_a(playerIn, itemstack1);

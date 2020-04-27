@@ -786,7 +786,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable
         ItemStack itemstack = this.playerEntity.getHeldItem(enumhand);
         this.playerEntity.markPlayerActive();
 
-        if (!itemstack.func_190926_b())
+        if (!itemstack.isEmpty())
         {
             this.playerEntity.interactionManager.processRightClick(this.playerEntity, worldserver, itemstack, enumhand);
         }
@@ -1236,7 +1236,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable
                     for (int j = 0; j < this.playerEntity.openContainer.inventorySlots.size(); ++j)
                     {
                         ItemStack itemstack = this.playerEntity.openContainer.inventorySlots.get(j).getStack();
-                        ItemStack itemstack1 = itemstack.func_190926_b() ? ItemStack.field_190927_a : itemstack;
+                        ItemStack itemstack1 = itemstack.isEmpty() ? ItemStack.itemStack : itemstack;
                         nonnulllist1.add(itemstack1);
                     }
 
@@ -1285,7 +1285,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable
             boolean flag = packetIn.getSlotId() < 0;
             ItemStack itemstack = packetIn.getStack();
 
-            if (!itemstack.func_190926_b() && itemstack.hasTagCompound() && itemstack.getTagCompound().hasKey("BlockEntityTag", 10))
+            if (!itemstack.isEmpty() && itemstack.hasTagCompound() && itemstack.getTagCompound().hasKey("BlockEntityTag", 10))
             {
                 NBTTagCompound nbttagcompound = itemstack.getTagCompound().getCompoundTag("BlockEntityTag");
 
@@ -1306,13 +1306,13 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable
             }
 
             boolean flag1 = packetIn.getSlotId() >= 1 && packetIn.getSlotId() <= 45;
-            boolean flag2 = itemstack.func_190926_b() || itemstack.getMetadata() >= 0 && itemstack.func_190916_E() <= 64 && !itemstack.func_190926_b();
+            boolean flag2 = itemstack.isEmpty() || itemstack.getMetadata() >= 0 && itemstack.func_190916_E() <= 64 && !itemstack.isEmpty();
 
             if (flag1 && flag2)
             {
-                if (itemstack.func_190926_b())
+                if (itemstack.isEmpty())
                 {
-                    this.playerEntity.inventoryContainer.putStackInSlot(packetIn.getSlotId(), ItemStack.field_190927_a);
+                    this.playerEntity.inventoryContainer.putStackInSlot(packetIn.getSlotId(), ItemStack.itemStack);
                 }
                 else
                 {
@@ -1460,7 +1460,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable
             {
                 ItemStack itemstack = packetbuffer.readItemStackFromBuffer();
 
-                if (itemstack.func_190926_b())
+                if (itemstack.isEmpty())
                 {
                     return;
                 }
@@ -1472,7 +1472,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable
 
                 ItemStack itemstack1 = this.playerEntity.getHeldItemMainhand();
 
-                if (itemstack1.func_190926_b())
+                if (itemstack1.isEmpty())
                 {
                     return;
                 }
@@ -1495,7 +1495,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable
             {
                 ItemStack itemstack3 = packetbuffer1.readItemStackFromBuffer();
 
-                if (itemstack3.func_190926_b())
+                if (itemstack3.isEmpty())
                 {
                     return;
                 }
@@ -1507,7 +1507,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable
 
                 ItemStack itemstack4 = this.playerEntity.getHeldItemMainhand();
 
-                if (itemstack4.func_190926_b())
+                if (itemstack4.isEmpty())
                 {
                     return;
                 }

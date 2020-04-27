@@ -4,7 +4,6 @@ import java.util.Random;
 import javax.annotation.Nullable;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
@@ -253,7 +252,7 @@ public class BlockChorusFlower extends Block
 
     protected ItemStack getSilkTouchDrop(IBlockState state)
     {
-        return ItemStack.field_190927_a;
+        return ItemStack.itemStack;
     }
 
     public BlockRenderLayer getBlockLayer()

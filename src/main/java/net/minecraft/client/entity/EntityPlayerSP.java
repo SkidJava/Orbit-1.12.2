@@ -360,7 +360,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
 
     protected ItemStack dropItemAndGetStack(EntityItem p_184816_1_)
     {
-        return ItemStack.field_190927_a;
+        return ItemStack.itemStack;
     }
 
     /**
@@ -407,7 +407,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
 
     public void closeScreenAndDropStack()
     {
-        this.inventory.setItemStack(ItemStack.field_190927_a);
+        this.inventory.setItemStack(ItemStack.itemStack);
         super.closeScreen();
         this.mc.displayGuiScreen(null);
     }
@@ -696,7 +696,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
     {
         ItemStack itemstack = this.getHeldItem(hand);
 
-        if (!itemstack.func_190926_b() && !this.isHandActive())
+        if (!itemstack.isEmpty() && !this.isHandActive())
         {
             super.setActiveHand(hand);
             this.handActive = true;

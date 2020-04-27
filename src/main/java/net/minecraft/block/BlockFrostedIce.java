@@ -1,7 +1,7 @@
 package net.minecraft.block;
 
 import java.util.Random;
-import net.minecraft.block.properties.IProperty;
+
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -122,6 +122,6 @@ public class BlockFrostedIce extends BlockIce
 
     public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state)
     {
-        return ItemStack.field_190927_a;
+        return ItemStack.itemStack;
     }
 }

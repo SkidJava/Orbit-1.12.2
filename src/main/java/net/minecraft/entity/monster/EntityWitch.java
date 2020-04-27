@@ -129,7 +129,7 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob
                 {
                     this.setAggressive(false);
                     ItemStack itemstack = this.getHeldItemMainhand();
-                    this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, ItemStack.field_190927_a);
+                    this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, ItemStack.itemStack);
 
                     if (itemstack.getItem() == Items.POTIONITEM)
                     {

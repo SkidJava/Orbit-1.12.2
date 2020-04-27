@@ -293,7 +293,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback
 
             if (hoverevent.getAction() == HoverEvent.Action.SHOW_ITEM)
             {
-                ItemStack itemstack = ItemStack.field_190927_a;
+                ItemStack itemstack = ItemStack.itemStack;
 
                 try
                 {
@@ -308,7 +308,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback
                 {
                 }
 
-                if (itemstack.func_190926_b())
+                if (itemstack.isEmpty())
                 {
                     this.drawCreativeTabHoveringText(TextFormatting.RED + "Invalid Item!", x, y);
                 }

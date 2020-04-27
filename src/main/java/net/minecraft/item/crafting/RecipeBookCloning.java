@@ -15,17 +15,17 @@ public class RecipeBookCloning implements IRecipe
     public boolean matches(InventoryCrafting inv, World worldIn)
     {
         int i = 0;
-        ItemStack itemstack = ItemStack.field_190927_a;
+        ItemStack itemstack = ItemStack.itemStack;
 
         for (int j = 0; j < inv.getSizeInventory(); ++j)
         {
             ItemStack itemstack1 = inv.getStackInSlot(j);
 
-            if (!itemstack1.func_190926_b())
+            if (!itemstack1.isEmpty())
             {
                 if (itemstack1.getItem() == Items.WRITTEN_BOOK)
                 {
-                    if (!itemstack.func_190926_b())
+                    if (!itemstack.isEmpty())
                     {
                         return false;
                     }
@@ -44,7 +44,7 @@ public class RecipeBookCloning implements IRecipe
             }
         }
 
-        return !itemstack.func_190926_b() && itemstack.hasTagCompound() && i > 0;
+        return !itemstack.isEmpty() && itemstack.hasTagCompound() && i > 0;
     }
 
     /**
@@ -53,19 +53,19 @@ public class RecipeBookCloning implements IRecipe
     public ItemStack getCraftingResult(InventoryCrafting inv)
     {
         int i = 0;
-        ItemStack itemstack = ItemStack.field_190927_a;
+        ItemStack itemstack = ItemStack.itemStack;
 
         for (int j = 0; j < inv.getSizeInventory(); ++j)
         {
             ItemStack itemstack1 = inv.getStackInSlot(j);
 
-            if (!itemstack1.func_190926_b())
+            if (!itemstack1.isEmpty())
             {
                 if (itemstack1.getItem() == Items.WRITTEN_BOOK)
                 {
-                    if (!itemstack.func_190926_b())
+                    if (!itemstack.isEmpty())
                     {
-                        return ItemStack.field_190927_a;
+                        return ItemStack.itemStack;
                     }
 
                     itemstack = itemstack1;
@@ -74,7 +74,7 @@ public class RecipeBookCloning implements IRecipe
                 {
                     if (itemstack1.getItem() != Items.WRITABLE_BOOK)
                     {
-                        return ItemStack.field_190927_a;
+                        return ItemStack.itemStack;
                     }
 
                     ++i;
@@ -82,7 +82,7 @@ public class RecipeBookCloning implements IRecipe
             }
         }
 
-        if (!itemstack.func_190926_b() && itemstack.hasTagCompound() && i >= 1 && ItemWrittenBook.getGeneration(itemstack) < 2)
+        if (!itemstack.isEmpty() && itemstack.hasTagCompound() && i >= 1 && ItemWrittenBook.getGeneration(itemstack) < 2)
         {
             ItemStack itemstack2 = new ItemStack(Items.WRITTEN_BOOK, i);
             itemstack2.setTagCompound(itemstack.getTagCompound().copy());
@@ -97,18 +97,18 @@ public class RecipeBookCloning implements IRecipe
         }
         else
         {
-            return ItemStack.field_190927_a;
+            return ItemStack.itemStack;
         }
     }
 
     public ItemStack getRecipeOutput()
     {
-        return ItemStack.field_190927_a;
+        return ItemStack.itemStack;
     }
 
     public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv)
     {
-        NonNullList<ItemStack> nonnulllist = NonNullList.func_191197_a(inv.getSizeInventory(), ItemStack.field_190927_a);
+        NonNullList<ItemStack> nonnulllist = NonNullList.func_191197_a(inv.getSizeInventory(), ItemStack.itemStack);
 
         for (int i = 0; i < nonnulllist.size(); ++i)
         {

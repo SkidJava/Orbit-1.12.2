@@ -178,7 +178,7 @@ public abstract class EntityPlayer extends EntityLivingBase
     /** The thePlayer's unique game profile */
     private final GameProfile gameProfile;
     private boolean hasReducedDebug;
-    private ItemStack itemStackMainHand = ItemStack.field_190927_a;
+    private ItemStack itemStackMainHand = ItemStack.itemStack;
     private final CooldownTracker cooldownTracker = this.createCooldownTracker();
     @Nullable
 
@@ -322,7 +322,7 @@ public abstract class EntityPlayer extends EntityLivingBase
                 this.resetCooldown();
             }
 
-            this.itemStackMainHand = itemstack.func_190926_b() ? ItemStack.field_190927_a : itemstack.copy();
+            this.itemStackMainHand = itemstack.isEmpty() ? ItemStack.itemStack : itemstack.copy();
         }
 
         this.cooldownTracker.tick();
@@ -727,7 +727,7 @@ public abstract class EntityPlayer extends EntityLivingBase
         {
             ItemStack itemstack = this.inventory.getStackInSlot(i);
 
-            if (!itemstack.func_190926_b() && EnchantmentHelper.func_190939_c(itemstack))
+            if (!itemstack.isEmpty() && EnchantmentHelper.func_190939_c(itemstack))
             {
                 this.inventory.removeStackFromSlot(i);
             }
@@ -759,7 +759,7 @@ public abstract class EntityPlayer extends EntityLivingBase
      */
     public EntityItem dropItem(boolean dropAll)
     {
-        return this.dropItem(this.inventory.decrStackSize(this.inventory.currentItem, dropAll && !this.inventory.getCurrentItem().func_190926_b() ? this.inventory.getCurrentItem().func_190916_E() : 1), false, true);
+        return this.dropItem(this.inventory.decrStackSize(this.inventory.currentItem, dropAll && !this.inventory.getCurrentItem().isEmpty() ? this.inventory.getCurrentItem().func_190916_E() : 1), false, true);
     }
 
     @Nullable
@@ -775,7 +775,7 @@ public abstract class EntityPlayer extends EntityLivingBase
     @Nullable
     public EntityItem dropItem(ItemStack droppedItem, boolean dropAround, boolean traceItem)
     {
-        if (droppedItem.func_190926_b())
+        if (droppedItem.isEmpty())
         {
             return null;
         }
@@ -815,7 +815,7 @@ public abstract class EntityPlayer extends EntityLivingBase
 
             if (traceItem)
             {
-                if (!itemstack.func_190926_b())
+                if (!itemstack.isEmpty())
                 {
                     this.addStat(StatList.getDroppedObjectStats(itemstack.getItem()), droppedItem.func_190916_E());
                 }
@@ -842,7 +842,7 @@ public abstract class EntityPlayer extends EntityLivingBase
             int i = EnchantmentHelper.getEfficiencyModifier(this);
             ItemStack itemstack = this.getHeldItemMainhand();
 
-            if (i > 0 && !itemstack.func_190926_b())
+            if (i > 0 && !itemstack.isEmpty())
             {
                 f += (float)(i * i + 1);
             }
@@ -1107,20 +1107,20 @@ public abstract class EntityPlayer extends EntityLivingBase
             int i = 1 + MathHelper.floor(damage);
             this.activeItemStack.damageItem(i, this);
 
-            if (this.activeItemStack.func_190926_b())
+            if (this.activeItemStack.isEmpty())
             {
                 EnumHand enumhand = this.getActiveHand();
 
                 if (enumhand == EnumHand.MAIN_HAND)
                 {
-                    this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, ItemStack.field_190927_a);
+                    this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, ItemStack.itemStack);
                 }
                 else
                 {
-                    this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, ItemStack.field_190927_a);
+                    this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, ItemStack.itemStack);
                 }
 
-                this.activeItemStack = ItemStack.field_190927_a;
+                this.activeItemStack = ItemStack.itemStack;
                 this.playSound(SoundEvents.ITEM_SHIELD_BREAK, 0.8F, 0.8F + this.world.rand.nextFloat() * 0.4F);
             }
         }
@@ -1136,7 +1136,7 @@ public abstract class EntityPlayer extends EntityLivingBase
 
         for (ItemStack itemstack : this.inventory.armorInventory)
         {
-            if (!itemstack.func_190926_b())
+            if (!itemstack.isEmpty())
             {
                 ++i;
             }
@@ -1227,7 +1227,7 @@ public abstract class EntityPlayer extends EntityLivingBase
         else
         {
             ItemStack itemstack = this.getHeldItem(p_190775_2_);
-            ItemStack itemstack1 = itemstack.func_190926_b() ? ItemStack.field_190927_a : itemstack.copy();
+            ItemStack itemstack1 = itemstack.isEmpty() ? ItemStack.itemStack : itemstack.copy();
 
             if (p_190775_1_.processInitialInteract(this, p_190775_2_))
             {
@@ -1240,7 +1240,7 @@ public abstract class EntityPlayer extends EntityLivingBase
             }
             else
             {
-                if (!itemstack.func_190926_b() && p_190775_1_ instanceof EntityLivingBase)
+                if (!itemstack.isEmpty() && p_190775_1_ instanceof EntityLivingBase)
                 {
                     if (this.capabilities.isCreativeMode)
                     {
@@ -1249,9 +1249,9 @@ public abstract class EntityPlayer extends EntityLivingBase
 
                     if (itemstack.interactWithEntity(this, (EntityLivingBase)p_190775_1_, p_190775_2_))
                     {
-                        if (itemstack.func_190926_b() && !this.capabilities.isCreativeMode)
+                        if (itemstack.isEmpty() && !this.capabilities.isCreativeMode)
                         {
-                            this.setHeldItem(p_190775_2_, ItemStack.field_190927_a);
+                            this.setHeldItem(p_190775_2_, ItemStack.itemStack);
                         }
 
                         return EnumActionResult.SUCCESS;
@@ -1448,13 +1448,13 @@ public abstract class EntityPlayer extends EntityLivingBase
                             }
                         }
 
-                        if (!itemstack1.func_190926_b() && entity instanceof EntityLivingBase)
+                        if (!itemstack1.isEmpty() && entity instanceof EntityLivingBase)
                         {
                             itemstack1.hitEntity((EntityLivingBase)entity, this);
 
-                            if (itemstack1.func_190926_b())
+                            if (itemstack1.isEmpty())
                             {
-                                this.setHeldItem(EnumHand.MAIN_HAND, ItemStack.field_190927_a);
+                                this.setHeldItem(EnumHand.MAIN_HAND, ItemStack.itemStack);
                             }
                         }
 
@@ -2173,7 +2173,7 @@ public abstract class EntityPlayer extends EntityLivingBase
         {
             return true;
         }
-        else if (stack.func_190926_b())
+        else if (stack.isEmpty())
         {
             return false;
         }
@@ -2265,7 +2265,7 @@ public abstract class EntityPlayer extends EntityLivingBase
         }
         else
         {
-            return slotIn.getSlotType() == EntityEquipmentSlot.Type.ARMOR ? this.inventory.armorInventory.get(slotIn.getIndex()) : ItemStack.field_190927_a;
+            return slotIn.getSlotType() == EntityEquipmentSlot.Type.ARMOR ? this.inventory.armorInventory.get(slotIn.getIndex()) : ItemStack.itemStack;
         }
     }
 
@@ -2482,7 +2482,7 @@ public abstract class EntityPlayer extends EntityLivingBase
         else
         {
             ItemStack itemstack = this.getHeldItemMainhand();
-            return (!itemstack.func_190926_b() && itemstack.hasDisplayName()) && itemstack.getDisplayName().equals(code.getLock());
+            return (!itemstack.isEmpty() && itemstack.hasDisplayName()) && itemstack.getDisplayName().equals(code.getLock());
         }
     }
 
@@ -2557,7 +2557,7 @@ public abstract class EntityPlayer extends EntityLivingBase
             }
             else
             {
-                if (!itemStackIn.func_190926_b())
+                if (!itemStackIn.isEmpty())
                 {
                     if (!(itemStackIn.getItem() instanceof ItemArmor) && !(itemStackIn.getItem() instanceof ItemElytra))
                     {

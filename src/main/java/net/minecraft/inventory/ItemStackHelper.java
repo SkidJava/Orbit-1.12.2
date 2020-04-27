@@ -10,12 +10,12 @@ public class ItemStackHelper
 {
     public static ItemStack getAndSplit(List<ItemStack> stacks, int index, int amount)
     {
-        return index >= 0 && index < stacks.size() && !stacks.get(index).func_190926_b() && amount > 0 ? stacks.get(index).splitStack(amount) : ItemStack.field_190927_a;
+        return index >= 0 && index < stacks.size() && !stacks.get(index).isEmpty() && amount > 0 ? stacks.get(index).splitStack(amount) : ItemStack.itemStack;
     }
 
     public static ItemStack getAndRemove(List<ItemStack> stacks, int index)
     {
-        return index >= 0 && index < stacks.size() ? stacks.set(index, ItemStack.field_190927_a) : ItemStack.field_190927_a;
+        return index >= 0 && index < stacks.size() ? stacks.set(index, ItemStack.itemStack) : ItemStack.itemStack;
     }
 
     public static NBTTagCompound func_191282_a(NBTTagCompound p_191282_0_, NonNullList<ItemStack> p_191282_1_)
@@ -31,7 +31,7 @@ public class ItemStackHelper
         {
             ItemStack itemstack = p_191281_1_.get(i);
 
-            if (!itemstack.func_190926_b())
+            if (!itemstack.isEmpty())
             {
                 NBTTagCompound nbttagcompound = new NBTTagCompound();
                 nbttagcompound.setByte("Slot", (byte)i);

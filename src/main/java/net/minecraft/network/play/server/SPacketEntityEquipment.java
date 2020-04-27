@@ -11,7 +11,7 @@ public class SPacketEntityEquipment implements Packet<INetHandlerPlayClient>
 {
     private int entityID;
     private EntityEquipmentSlot equipmentSlot;
-    private ItemStack itemStack = ItemStack.field_190927_a;
+    private ItemStack itemStack = ItemStack.itemStack;
 
     public SPacketEntityEquipment()
     {

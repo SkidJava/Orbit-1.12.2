@@ -73,6 +73,7 @@ import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemRecord;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
+import net.minecraft.tileentity.TileEntityEnderChest;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.ClassInheritanceMultiMap;
@@ -796,19 +797,11 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
             {
                 for (Entity entity3 : list2)
                 {
-                    if (!flag || Reflector.callBoolean(entity3, Reflector.ForgeEntity_shouldRenderInPass, i))
-                    {
-                        if (flag4)
-                        {
-                            Shaders.nextEntity(entity3);
-                        }
-
-                        this.renderManager.renderMultipass(entity3, partialTicks);
-                    }
+                    this.renderManager.renderMultipass(entity3, partialTicks);
                 }
             }
 
-            if (i == 0 && this.isRenderEntityOutlines() && (!list1.isEmpty() || this.entityOutlinesRendered))
+            if (this.isRenderEntityOutlines() && (!list1.isEmpty() || this.entityOutlinesRendered))
             {
                 this.theWorld.theProfiler.endStartSection("entityOutlines");
                 this.entityOutlineFramebuffer.framebufferClear();
@@ -822,19 +815,9 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
                     RenderHelper.disableStandardItemLighting();
                     this.renderManager.setRenderOutlines(true);
 
-                    for (int k = 0; k < list1.size(); ++k)
+                    for (int j = 0; j < list1.size(); ++j)
                     {
-                        Entity entity4 = list1.get(k);
-
-                        if (!flag || Reflector.callBoolean(entity4, Reflector.ForgeEntity_shouldRenderInPass, i))
-                        {
-                            if (flag4)
-                            {
-                                Shaders.nextEntity(entity4);
-                            }
-
-                            this.renderManager.renderEntityStatic(entity4, partialTicks, false);
-                        }
+                        this.renderManager.renderEntityStatic(list1.get(j), partialTicks, false);
                     }
 
                     this.renderManager.setRenderOutlines(false);
@@ -854,50 +837,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
                 this.mc.getFramebuffer().bindFramebuffer(false);
             }
 
-            if (!this.isRenderEntityOutlines() && (!list1.isEmpty() || this.entityOutlinesRendered))
-            {
-                this.theWorld.theProfiler.endStartSection("entityOutlines");
-                this.entityOutlinesRendered = !list1.isEmpty();
-
-                if (!list1.isEmpty())
-                {
-                    GlStateManager.disableFog();
-                    GlStateManager.disableDepth();
-                    this.mc.entityRenderer.disableLightmap();
-                    RenderHelper.disableStandardItemLighting();
-                    this.renderManager.setRenderOutlines(true);
-
-                    for (int l = 0; l < list1.size(); ++l)
-                    {
-                        Entity entity5 = list1.get(l);
-
-                        if (!flag || Reflector.callBoolean(entity5, Reflector.ForgeEntity_shouldRenderInPass, i))
-                        {
-                            if (flag4)
-                            {
-                                Shaders.nextEntity(entity5);
-                            }
-
-                            this.renderManager.renderEntityStatic(entity5, partialTicks, false);
-                        }
-                    }
-
-                    this.renderManager.setRenderOutlines(false);
-                    RenderHelper.enableStandardItemLighting();
-                    this.mc.entityRenderer.enableLightmap();
-                    GlStateManager.enableDepth();
-                    GlStateManager.enableFog();
-                }
-            }
-
-            this.mc.gameSettings.fancyGraphics = flag5;
             FontRenderer fontrenderer = TileEntityRendererDispatcher.instance.getFontRenderer();
-
-            if (flag4)
-            {
-                Shaders.endEntities();
-                Shaders.beginBlockEntities();
-            }
 
             this.theWorld.theProfiler.endStartSection("blockentities");
             RenderHelper.enableStandardItemLighting();

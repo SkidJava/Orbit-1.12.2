@@ -78,12 +78,12 @@ public class EntityItem extends Entity
         this.health = 5;
         this.hoverStart = (float)(Math.random() * Math.PI * 2.0D);
         this.setSize(0.25F, 0.25F);
-        this.setEntityItemStack(ItemStack.field_190927_a);
+        this.setEntityItemStack(ItemStack.itemStack);
     }
 
     protected void entityInit()
     {
-        this.getDataManager().register(ITEM, ItemStack.field_190927_a);
+        this.getDataManager().register(ITEM, ItemStack.itemStack);
     }
 
     /**
@@ -91,7 +91,7 @@ public class EntityItem extends Entity
      */
     public void onUpdate()
     {
-        if (this.getEntityItem().func_190926_b())
+        if (this.getEntityItem().isEmpty())
         {
             this.setDead();
         }
@@ -319,7 +319,7 @@ public class EntityItem extends Entity
         {
             return false;
         }
-        else if (!this.getEntityItem().func_190926_b() && this.getEntityItem().getItem() == Items.NETHER_STAR && source.isExplosion())
+        else if (!this.getEntityItem().isEmpty() && this.getEntityItem().getItem() == Items.NETHER_STAR && source.isExplosion())
         {
             return false;
         }
@@ -361,7 +361,7 @@ public class EntityItem extends Entity
             compound.setString("Owner", this.owner);
         }
 
-        if (!this.getEntityItem().func_190926_b())
+        if (!this.getEntityItem().isEmpty())
         {
             compound.setTag("Item", this.getEntityItem().writeToNBT(new NBTTagCompound()));
         }
@@ -393,7 +393,7 @@ public class EntityItem extends Entity
         NBTTagCompound nbttagcompound = compound.getCompoundTag("Item");
         this.setEntityItemStack(new ItemStack(nbttagcompound));
 
-        if (this.getEntityItem().func_190926_b())
+        if (this.getEntityItem().isEmpty())
         {
             this.setDead();
         }
@@ -414,7 +414,7 @@ public class EntityItem extends Entity
             {
                 entityIn.onItemPickup(this, i);
 
-                if (itemstack.func_190926_b())
+                if (itemstack.isEmpty())
                 {
                     this.setDead();
                     itemstack.func_190920_e(i);

@@ -35,7 +35,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
     private static final int[] SLOTS_TOP = new int[] {0};
     private static final int[] SLOTS_BOTTOM = new int[] {2, 1};
     private static final int[] SLOTS_SIDES = new int[] {1};
-    private NonNullList<ItemStack> furnaceItemStacks = NonNullList.func_191197_a(3, ItemStack.field_190927_a);
+    private NonNullList<ItemStack> furnaceItemStacks = NonNullList.func_191197_a(3, ItemStack.itemStack);
 
     /** The number of ticks that the furnace will keep burning */
     private int furnaceBurnTime;
@@ -60,7 +60,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
     {
         for (ItemStack itemstack : this.furnaceItemStacks)
         {
-            if (!itemstack.func_190926_b())
+            if (!itemstack.isEmpty())
             {
                 return false;
             }
@@ -99,7 +99,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
     public void setInventorySlotContents(int index, ItemStack stack)
     {
         ItemStack itemstack = this.furnaceItemStacks.get(index);
-        boolean flag = !stack.func_190926_b() && stack.isItemEqual(itemstack) && ItemStack.areItemStackTagsEqual(stack, itemstack);
+        boolean flag = !stack.isEmpty() && stack.isItemEqual(itemstack) && ItemStack.areItemStackTagsEqual(stack, itemstack);
         this.furnaceItemStacks.set(index, stack);
 
         if (stack.func_190916_E() > this.getInventoryStackLimit())
@@ -144,7 +144,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
     public void readFromNBT(NBTTagCompound compound)
     {
         super.readFromNBT(compound);
-        this.furnaceItemStacks = NonNullList.func_191197_a(this.getSizeInventory(), ItemStack.field_190927_a);
+        this.furnaceItemStacks = NonNullList.func_191197_a(this.getSizeInventory(), ItemStack.itemStack);
         ItemStackHelper.func_191283_b(compound, this.furnaceItemStacks);
         this.furnaceBurnTime = compound.getShort("BurnTime");
         this.cookTime = compound.getShort("CookTime");
@@ -211,7 +211,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
         {
             ItemStack itemstack = this.furnaceItemStacks.get(1);
 
-            if (this.isBurning() || !itemstack.func_190926_b() && !this.furnaceItemStacks.get(0).func_190926_b())
+            if (this.isBurning() || !itemstack.isEmpty() && !this.furnaceItemStacks.get(0).isEmpty())
             {
                 if (!this.isBurning() && this.canSmelt())
                 {
@@ -222,15 +222,15 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
                     {
                         flag1 = true;
 
-                        if (!itemstack.func_190926_b())
+                        if (!itemstack.isEmpty())
                         {
                             Item item = itemstack.getItem();
                             itemstack.func_190918_g(1);
 
-                            if (itemstack.func_190926_b())
+                            if (itemstack.isEmpty())
                             {
                                 Item item1 = item.getContainerItem();
-                                this.furnaceItemStacks.set(1, item1 == null ? ItemStack.field_190927_a : new ItemStack(item1));
+                                this.furnaceItemStacks.set(1, item1 == null ? ItemStack.itemStack : new ItemStack(item1));
                             }
                         }
                     }
@@ -281,7 +281,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
      */
     private boolean canSmelt()
     {
-        if (this.furnaceItemStacks.get(0).func_190926_b())
+        if (this.furnaceItemStacks.get(0).isEmpty())
         {
             return false;
         }
@@ -289,7 +289,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
         {
             ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(this.furnaceItemStacks.get(0));
 
-            if (itemstack.func_190926_b())
+            if (itemstack.isEmpty())
             {
                 return false;
             }
@@ -297,7 +297,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
             {
                 ItemStack itemstack1 = this.furnaceItemStacks.get(2);
 
-                if (itemstack1.func_190926_b())
+                if (itemstack1.isEmpty())
                 {
                     return true;
                 }
@@ -328,7 +328,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
             ItemStack itemstack1 = FurnaceRecipes.instance().getSmeltingResult(itemstack);
             ItemStack itemstack2 = this.furnaceItemStacks.get(2);
 
-            if (itemstack2.func_190926_b())
+            if (itemstack2.isEmpty())
             {
                 this.furnaceItemStacks.set(2, itemstack1.copy());
             }
@@ -337,7 +337,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
                 itemstack2.func_190917_f(1);
             }
 
-            if (itemstack.getItem() == Item.getItemFromBlock(Blocks.SPONGE) && itemstack.getMetadata() == 1 && !this.furnaceItemStacks.get(1).func_190926_b() && this.furnaceItemStacks.get(1).getItem() == Items.BUCKET)
+            if (itemstack.getItem() == Item.getItemFromBlock(Blocks.SPONGE) && itemstack.getMetadata() == 1 && !this.furnaceItemStacks.get(1).isEmpty() && this.furnaceItemStacks.get(1).getItem() == Items.BUCKET)
             {
                 this.furnaceItemStacks.set(1, new ItemStack(Items.WATER_BUCKET));
             }
@@ -352,7 +352,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
      */
     public static int getItemBurnTime(ItemStack stack)
     {
-        if (stack.func_190926_b())
+        if (stack.isEmpty())
         {
             return 0;
         }

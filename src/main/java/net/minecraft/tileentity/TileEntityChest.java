@@ -25,7 +25,7 @@ import net.minecraft.util.math.BlockPos;
 
 public class TileEntityChest extends TileEntityLockableLoot implements ITickable
 {
-    private NonNullList<ItemStack> chestContents = NonNullList.func_191197_a(27, ItemStack.field_190927_a);
+    private NonNullList<ItemStack> chestContents = NonNullList.func_191197_a(27, ItemStack.itemStack);
 
     /** Determines if the check for adjacent chests has taken place. */
     public boolean adjacentChestChecked;
@@ -76,7 +76,7 @@ public class TileEntityChest extends TileEntityLockableLoot implements ITickable
     {
         for (ItemStack itemstack : this.chestContents)
         {
-            if (!itemstack.func_190926_b())
+            if (!itemstack.isEmpty())
             {
                 return false;
             }
@@ -101,7 +101,7 @@ public class TileEntityChest extends TileEntityLockableLoot implements ITickable
     public void readFromNBT(NBTTagCompound compound)
     {
         super.readFromNBT(compound);
-        this.chestContents = NonNullList.func_191197_a(this.getSizeInventory(), ItemStack.field_190927_a);
+        this.chestContents = NonNullList.func_191197_a(this.getSizeInventory(), ItemStack.itemStack);
 
         if (!this.checkLootAndRead(compound))
         {

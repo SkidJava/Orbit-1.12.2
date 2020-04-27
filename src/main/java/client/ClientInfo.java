@@ -3,7 +3,7 @@ package client;
 public class ClientInfo {
 
     private final static String clientName = "Orbit";
-    private final static int clientBuild = 1;
+    private final static float clientBuild = 1.0f;
 
     private final static String resouceLocation = "client/";
 
@@ -12,7 +12,7 @@ public class ClientInfo {
     }
 
     public static String getClientBuild() {
-        return "Build " + clientBuild;
+        return "Version " + clientBuild;
     }
 
     public static String getFormatedName() {

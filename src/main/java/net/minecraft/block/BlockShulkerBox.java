@@ -5,7 +5,6 @@ import javax.annotation.Nullable;
 import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockFaceShape;
@@ -250,14 +249,14 @@ public class BlockShulkerBox extends BlockContainer
 
             if (nbttagcompound1.hasKey("Items", 9))
             {
-                NonNullList<ItemStack> nonnulllist = NonNullList.func_191197_a(27, ItemStack.field_190927_a);
+                NonNullList<ItemStack> nonnulllist = NonNullList.func_191197_a(27, ItemStack.itemStack);
                 ItemStackHelper.func_191283_b(nbttagcompound1, nonnulllist);
                 int i = 0;
                 int j = 0;
 
                 for (ItemStack itemstack : nonnulllist)
                 {
-                    if (!itemstack.func_190926_b())
+                    if (!itemstack.isEmpty())
                     {
                         ++j;
 

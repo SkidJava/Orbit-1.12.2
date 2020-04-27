@@ -1,7 +1,6 @@
 package net.minecraft.block;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -99,7 +98,7 @@ public class BlockTNT extends Block
     {
         ItemStack itemstack = playerIn.getHeldItem(hand);
 
-        if (!itemstack.func_190926_b() && (itemstack.getItem() == Items.FLINT_AND_STEEL || itemstack.getItem() == Items.FIRE_CHARGE))
+        if (!itemstack.isEmpty() && (itemstack.getItem() == Items.FLINT_AND_STEEL || itemstack.getItem() == Items.FIRE_CHARGE))
         {
             this.explode(worldIn, pos, state.withProperty(EXPLODE, Boolean.valueOf(true)), playerIn);
             worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 11);

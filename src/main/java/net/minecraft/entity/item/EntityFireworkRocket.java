@@ -3,7 +3,6 @@ package net.minecraft.entity.item;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.MoverType;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -44,7 +43,7 @@ public class EntityFireworkRocket extends Entity
 
     protected void entityInit()
     {
-        this.dataManager.register(FIREWORK_ITEM, ItemStack.field_190927_a);
+        this.dataManager.register(FIREWORK_ITEM, ItemStack.itemStack);
         this.dataManager.register(field_191512_b, Integer.valueOf(0));
     }
 
@@ -69,7 +68,7 @@ public class EntityFireworkRocket extends Entity
         this.setPosition(x, y, z);
         int i = 1;
 
-        if (!givenItem.func_190926_b() && givenItem.hasTagCompound())
+        if (!givenItem.isEmpty() && givenItem.hasTagCompound())
         {
             this.dataManager.set(FIREWORK_ITEM, givenItem.copy());
             NBTTagCompound nbttagcompound = givenItem.getTagCompound();
@@ -206,7 +205,7 @@ public class EntityFireworkRocket extends Entity
     {
         float f = 0.0F;
         ItemStack itemstack = this.dataManager.get(FIREWORK_ITEM);
-        NBTTagCompound nbttagcompound = itemstack.func_190926_b() ? null : itemstack.getSubCompound("Fireworks");
+        NBTTagCompound nbttagcompound = itemstack.isEmpty() ? null : itemstack.getSubCompound("Fireworks");
         NBTTagList nbttaglist = nbttagcompound != null ? nbttagcompound.getTagList("Explosions", 10) : null;
 
         if (nbttaglist != null && !nbttaglist.hasNoTags())
@@ -261,7 +260,7 @@ public class EntityFireworkRocket extends Entity
         if (id == 17 && this.world.isRemote)
         {
             ItemStack itemstack = this.dataManager.get(FIREWORK_ITEM);
-            NBTTagCompound nbttagcompound = itemstack.func_190926_b() ? null : itemstack.getSubCompound("Fireworks");
+            NBTTagCompound nbttagcompound = itemstack.isEmpty() ? null : itemstack.getSubCompound("Fireworks");
             this.world.makeFireworks(this.posX, this.posY, this.posZ, this.motionX, this.motionY, this.motionZ, nbttagcompound);
         }
 
@@ -282,7 +281,7 @@ public class EntityFireworkRocket extends Entity
         compound.setInteger("LifeTime", this.lifetime);
         ItemStack itemstack = this.dataManager.get(FIREWORK_ITEM);
 
-        if (!itemstack.func_190926_b())
+        if (!itemstack.isEmpty())
         {
             compound.setTag("FireworksItem", itemstack.writeToNBT(new NBTTagCompound()));
         }
@@ -301,7 +300,7 @@ public class EntityFireworkRocket extends Entity
         {
             ItemStack itemstack = new ItemStack(nbttagcompound);
 
-            if (!itemstack.func_190926_b())
+            if (!itemstack.isEmpty())
             {
                 this.dataManager.set(FIREWORK_ITEM, itemstack);
             }

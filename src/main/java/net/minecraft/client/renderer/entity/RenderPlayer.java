@@ -107,7 +107,7 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer>
             ModelBiped.ArmPose modelbiped$armpose = ModelBiped.ArmPose.EMPTY;
             ModelBiped.ArmPose modelbiped$armpose1 = ModelBiped.ArmPose.EMPTY;
 
-            if (!itemstack.func_190926_b())
+            if (!itemstack.isEmpty())
             {
                 modelbiped$armpose = ModelBiped.ArmPose.ITEM;
 
@@ -126,7 +126,7 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer>
                 }
             }
 
-            if (!itemstack1.func_190926_b())
+            if (!itemstack1.isEmpty())
             {
                 modelbiped$armpose1 = ModelBiped.ArmPose.ITEM;
 

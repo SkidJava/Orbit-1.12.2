@@ -22,7 +22,7 @@ public class CPacketClickWindow implements Packet<INetHandlerPlayServer>
     private short actionNumber;
 
     /** The item stack present in the slot */
-    private ItemStack clickedItem = ItemStack.field_190927_a;
+    private ItemStack clickedItem = ItemStack.itemStack;
 
     /** Inventory operation mode */
     private ClickType mode;

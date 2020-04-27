@@ -3,7 +3,6 @@ package net.minecraft.block;
 import java.util.Random;
 import javax.annotation.Nullable;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockFaceShape;
@@ -91,7 +90,7 @@ public class BlockFlowerPot extends BlockContainer
         {
             ItemStack itemstack1 = tileentityflowerpot.getFlowerItemStack();
 
-            if (itemstack1.func_190926_b())
+            if (itemstack1.isEmpty())
             {
                 if (!this.func_190951_a(itemstack))
                 {
@@ -108,7 +107,7 @@ public class BlockFlowerPot extends BlockContainer
             }
             else
             {
-                if (itemstack.func_190926_b())
+                if (itemstack.isEmpty())
                 {
                     playerIn.setHeldItem(hand, itemstack1);
                 }
@@ -117,7 +116,7 @@ public class BlockFlowerPot extends BlockContainer
                     playerIn.dropItem(itemstack1, false);
                 }
 
-                tileentityflowerpot.func_190614_a(ItemStack.field_190927_a);
+                tileentityflowerpot.func_190614_a(ItemStack.itemStack);
             }
 
             tileentityflowerpot.markDirty();
@@ -149,7 +148,7 @@ public class BlockFlowerPot extends BlockContainer
         {
             ItemStack itemstack = tileentityflowerpot.getFlowerItemStack();
 
-            if (!itemstack.func_190926_b())
+            if (!itemstack.isEmpty())
             {
                 return itemstack;
             }
@@ -202,7 +201,7 @@ public class BlockFlowerPot extends BlockContainer
 
             if (tileentityflowerpot != null)
             {
-                tileentityflowerpot.func_190614_a(ItemStack.field_190927_a);
+                tileentityflowerpot.func_190614_a(ItemStack.itemStack);
             }
         }
     }

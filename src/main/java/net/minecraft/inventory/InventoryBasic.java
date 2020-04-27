@@ -22,7 +22,7 @@ public class InventoryBasic implements IInventory
         this.inventoryTitle = title;
         this.hasCustomName = customName;
         this.slotsCount = slotCount;
-        this.inventoryContents = NonNullList.func_191197_a(slotCount, ItemStack.field_190927_a);
+        this.inventoryContents = NonNullList.func_191197_a(slotCount, ItemStack.itemStack);
     }
 
     public InventoryBasic(ITextComponent title, int slotCount)
@@ -56,7 +56,7 @@ public class InventoryBasic implements IInventory
      */
     public ItemStack getStackInSlot(int index)
     {
-        return index >= 0 && index < this.inventoryContents.size() ? this.inventoryContents.get(index) : ItemStack.field_190927_a;
+        return index >= 0 && index < this.inventoryContents.size() ? this.inventoryContents.get(index) : ItemStack.itemStack;
     }
 
     /**
@@ -66,7 +66,7 @@ public class InventoryBasic implements IInventory
     {
         ItemStack itemstack = ItemStackHelper.getAndSplit(this.inventoryContents, index, count);
 
-        if (!itemstack.func_190926_b())
+        if (!itemstack.isEmpty())
         {
             this.markDirty();
         }
@@ -82,11 +82,11 @@ public class InventoryBasic implements IInventory
         {
             ItemStack itemstack1 = this.getStackInSlot(i);
 
-            if (itemstack1.func_190926_b())
+            if (itemstack1.isEmpty())
             {
                 this.setInventorySlotContents(i, itemstack);
                 this.markDirty();
-                return ItemStack.field_190927_a;
+                return ItemStack.itemStack;
             }
 
             if (ItemStack.areItemsEqual(itemstack1, itemstack))
@@ -99,10 +99,10 @@ public class InventoryBasic implements IInventory
                     itemstack1.func_190917_f(k);
                     itemstack.func_190918_g(k);
 
-                    if (itemstack.func_190926_b())
+                    if (itemstack.isEmpty())
                     {
                         this.markDirty();
-                        return ItemStack.field_190927_a;
+                        return ItemStack.itemStack;
                     }
                 }
             }
@@ -123,13 +123,13 @@ public class InventoryBasic implements IInventory
     {
         ItemStack itemstack = this.inventoryContents.get(index);
 
-        if (itemstack.func_190926_b())
+        if (itemstack.isEmpty())
         {
-            return ItemStack.field_190927_a;
+            return ItemStack.itemStack;
         }
         else
         {
-            this.inventoryContents.set(index, ItemStack.field_190927_a);
+            this.inventoryContents.set(index, ItemStack.itemStack);
             return itemstack;
         }
     }
@@ -141,7 +141,7 @@ public class InventoryBasic implements IInventory
     {
         this.inventoryContents.set(index, stack);
 
-        if (!stack.func_190926_b() && stack.func_190916_E() > this.getInventoryStackLimit())
+        if (!stack.isEmpty() && stack.func_190916_E() > this.getInventoryStackLimit())
         {
             stack.func_190920_e(this.getInventoryStackLimit());
         }
@@ -161,7 +161,7 @@ public class InventoryBasic implements IInventory
     {
         for (ItemStack itemstack : this.inventoryContents)
         {
-            if (!itemstack.func_190926_b())
+            if (!itemstack.isEmpty())
             {
                 return false;
             }

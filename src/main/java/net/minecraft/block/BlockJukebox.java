@@ -2,7 +2,6 @@ package net.minecraft.block;
 
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -17,7 +16,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.datafix.FixTypes;
 import net.minecraft.util.datafix.walkers.ItemStackData;
@@ -77,11 +75,11 @@ public class BlockJukebox extends BlockContainer
                 BlockJukebox.TileEntityJukebox blockjukebox$tileentityjukebox = (BlockJukebox.TileEntityJukebox)tileentity;
                 ItemStack itemstack = blockjukebox$tileentityjukebox.getRecord();
 
-                if (!itemstack.func_190926_b())
+                if (!itemstack.isEmpty())
                 {
                     worldIn.playEvent(1010, pos, 0);
                     worldIn.playRecord(pos, null);
-                    blockjukebox$tileentityjukebox.setRecord(ItemStack.field_190927_a);
+                    blockjukebox$tileentityjukebox.setRecord(ItemStack.itemStack);
                     float f = 0.7F;
                     double d0 = (double)(worldIn.rand.nextFloat() * 0.7F) + 0.15000000596046448D;
                     double d1 = (double)(worldIn.rand.nextFloat() * 0.7F) + 0.06000000238418579D + 0.6D;
@@ -136,7 +134,7 @@ public class BlockJukebox extends BlockContainer
         {
             ItemStack itemstack = ((BlockJukebox.TileEntityJukebox)tileentity).getRecord();
 
-            if (!itemstack.func_190926_b())
+            if (!itemstack.isEmpty())
             {
                 return Item.getIdFromItem(itemstack.getItem()) + 1 - Item.getIdFromItem(Items.RECORD_13);
             }
@@ -177,7 +175,7 @@ public class BlockJukebox extends BlockContainer
 
     public static class TileEntityJukebox extends TileEntity
     {
-        private ItemStack record = ItemStack.field_190927_a;
+        private ItemStack record = ItemStack.itemStack;
 
         public void readFromNBT(NBTTagCompound compound)
         {
@@ -197,7 +195,7 @@ public class BlockJukebox extends BlockContainer
         {
             super.writeToNBT(compound);
 
-            if (!this.getRecord().func_190926_b())
+            if (!this.getRecord().isEmpty())
             {
                 compound.setTag("RecordItem", this.getRecord().writeToNBT(new NBTTagCompound()));
             }

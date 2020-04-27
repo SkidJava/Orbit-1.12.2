@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Random;
 import javax.annotation.Nullable;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockFaceShape;
@@ -209,7 +208,7 @@ public class BlockPistonMoving extends BlockContainer
 
     public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state)
     {
-        return ItemStack.field_190927_a;
+        return ItemStack.itemStack;
     }
 
     /**

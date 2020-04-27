@@ -16,7 +16,7 @@ public class HotbarSnapshot extends ArrayList<ItemStack>
 
         for (int i = 0; i < field_192835_a; ++i)
         {
-            this.add(ItemStack.field_190927_a);
+            this.add(ItemStack.itemStack);
         }
     }
 
@@ -44,7 +44,7 @@ public class HotbarSnapshot extends ArrayList<ItemStack>
     {
         for (int i = 0; i < field_192835_a; ++i)
         {
-            if (!this.get(i).func_190926_b())
+            if (!this.get(i).isEmpty())
             {
                 return false;
             }

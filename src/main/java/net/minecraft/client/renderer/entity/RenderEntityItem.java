@@ -7,7 +7,6 @@ import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -86,7 +85,7 @@ public class RenderEntityItem extends Render<EntityItem>
     public void doRender(EntityItem entity, double x, double y, double z, float entityYaw, float partialTicks)
     {
         ItemStack itemstack = entity.getEntityItem();
-        int i = itemstack.func_190926_b() ? 187 : Item.getIdFromItem(itemstack.getItem()) + itemstack.getMetadata();
+        int i = itemstack.isEmpty() ? 187 : Item.getIdFromItem(itemstack.getItem()) + itemstack.getMetadata();
         this.random.setSeed((long)i);
         boolean flag = false;
 

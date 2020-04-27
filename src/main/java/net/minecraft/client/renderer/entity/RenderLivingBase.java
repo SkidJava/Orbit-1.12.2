@@ -173,7 +173,7 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
                 this.mainModel.setLivingAnimations(entity, f6, f5, partialTicks);
                 this.mainModel.setRotationAngles(f6, f5, f8, f2, f7, f4, entity);
 
-                if (Managers.getManagers().moduleManager.getModule(ESP.class).isEnabled() && entity instanceof EntityPlayer && entity != Minecraft.getMinecraft().thePlayer) {
+                if (Managers.getManagers().moduleManager.getModule(ESP.class).isEnabled() && entity != Minecraft.getMinecraft().thePlayer) {
                     renderModel(entity, f6, f5, f8, f2, f7, f4);
                     OutlineUtils.renderOne();
                     renderModel(entity, f6, f5, f8, f2, f7, f4);

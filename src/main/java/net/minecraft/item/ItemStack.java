@@ -50,7 +50,7 @@ import net.minecraft.world.World;
 
 public final class ItemStack
 {
-    public static final ItemStack field_190927_a = new ItemStack((Item)null);
+    public static final ItemStack itemStack = new ItemStack((Item)null);
     public static final DecimalFormat DECIMALFORMAT = new DecimalFormat("#.##");
 
     /** Size of the stack. */
@@ -117,7 +117,7 @@ public final class ItemStack
 
     private void func_190923_F()
     {
-        this.field_190928_g = this.func_190926_b();
+        this.field_190928_g = this.isEmpty();
     }
 
     public ItemStack(NBTTagCompound p_i47263_1_)
@@ -139,9 +139,9 @@ public final class ItemStack
         this.func_190923_F();
     }
 
-    public boolean func_190926_b()
+    public boolean isEmpty()
     {
-        if (this == field_190927_a)
+        if (this == itemStack)
         {
             return true;
         }
@@ -445,11 +445,11 @@ public final class ItemStack
 
     public static boolean areItemStackTagsEqual(ItemStack stackA, ItemStack stackB)
     {
-        if (stackA.func_190926_b() && stackB.func_190926_b())
+        if (stackA.isEmpty() && stackB.isEmpty())
         {
             return true;
         }
-        else if (!stackA.func_190926_b() && !stackB.func_190926_b())
+        else if (!stackA.isEmpty() && !stackB.isEmpty())
         {
             if (stackA.stackTagCompound == null && stackB.stackTagCompound != null)
             {
@@ -471,13 +471,13 @@ public final class ItemStack
      */
     public static boolean areItemStacksEqual(ItemStack stackA, ItemStack stackB)
     {
-        if (stackA.func_190926_b() && stackB.func_190926_b())
+        if (stackA.isEmpty() && stackB.isEmpty())
         {
             return true;
         }
         else
         {
-            return (!stackA.func_190926_b() && !stackB.func_190926_b()) && stackA.isItemStackEqual(stackB);
+            return (!stackA.isEmpty() && !stackB.isEmpty()) && stackA.isItemStackEqual(stackB);
         }
     }
 
@@ -519,7 +519,7 @@ public final class ItemStack
         }
         else
         {
-            return (!stackA.func_190926_b() && !stackB.func_190926_b()) && stackA.isItemEqual(stackB);
+            return (!stackA.isEmpty() && !stackB.isEmpty()) && stackA.isItemEqual(stackB);
         }
     }
 
@@ -531,7 +531,7 @@ public final class ItemStack
         }
         else
         {
-            return (!stackA.func_190926_b() && !stackB.func_190926_b()) && stackA.isItemEqualIgnoreDurability(stackB);
+            return (!stackA.isEmpty() && !stackB.isEmpty()) && stackA.isItemEqualIgnoreDurability(stackB);
         }
     }
 
@@ -541,7 +541,7 @@ public final class ItemStack
      */
     public boolean isItemEqual(ItemStack other)
     {
-        return !other.func_190926_b() && this.item == other.item && this.itemDamage == other.itemDamage;
+        return !other.isEmpty() && this.item == other.item && this.itemDamage == other.itemDamage;
     }
 
     public boolean isItemEqualIgnoreDurability(ItemStack stack)
@@ -552,7 +552,7 @@ public final class ItemStack
         }
         else
         {
-            return !stack.func_190926_b() && this.item == stack.item;
+            return !stack.isEmpty() && this.item == stack.item;
         }
     }
 

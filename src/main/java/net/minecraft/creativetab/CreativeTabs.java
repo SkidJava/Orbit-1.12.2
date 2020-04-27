@@ -123,7 +123,7 @@ public abstract class CreativeTabs
     {
         this.tabIndex = index;
         this.tabLabel = label;
-        this.iconItemStack = ItemStack.field_190927_a;
+        this.iconItemStack = ItemStack.itemStack;
         CREATIVE_TAB_ARRAY[index] = this;
     }
 
@@ -147,7 +147,7 @@ public abstract class CreativeTabs
 
     public ItemStack getIconItemStack()
     {
-        if (this.iconItemStack.func_190926_b())
+        if (this.iconItemStack.isEmpty())
         {
             this.iconItemStack = this.getTabIconItem();
         }

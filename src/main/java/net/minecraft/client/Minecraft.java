@@ -1692,7 +1692,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo
                                     {
                                         this.thePlayer.swingArm(enumhand);
 
-                                        if (!itemstack.func_190926_b() && (itemstack.func_190916_E() != i || this.playerController.isInCreativeMode()))
+                                        if (!itemstack.isEmpty() && (itemstack.func_190916_E() != i || this.playerController.isInCreativeMode()))
                                         {
                                             this.entityRenderer.itemRenderer.resetEquippedProgress(enumhand);
                                         }
@@ -1703,7 +1703,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo
                         }
                     }
 
-                    if (!itemstack.func_190926_b() && this.playerController.processRightClick(this.thePlayer, this.theWorld, enumhand) == EnumActionResult.SUCCESS)
+                    if (!itemstack.isEmpty() && this.playerController.processRightClick(this.thePlayer, this.theWorld, enumhand) == EnumActionResult.SUCCESS)
                     {
                         this.entityRenderer.itemRenderer.resetEquippedProgress(enumhand);
                         return;
@@ -2732,7 +2732,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo
 
                 itemstack = block.getItem(this.theWorld, blockpos, iblockstate);
 
-                if (itemstack.func_190926_b())
+                if (itemstack.isEmpty())
                 {
                     return;
                 }
@@ -2762,7 +2762,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo
                     EntityItemFrame entityitemframe = (EntityItemFrame)this.objectMouseOver.entityHit;
                     ItemStack itemstack1 = entityitemframe.getDisplayedItem();
 
-                    if (itemstack1.func_190926_b())
+                    if (itemstack1.isEmpty())
                     {
                         itemstack = new ItemStack(Items.ITEM_FRAME);
                     }
@@ -2830,7 +2830,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo
                 }
             }
 
-            if (itemstack.func_190926_b())
+            if (itemstack.isEmpty())
             {
                 String s = "";
 

@@ -21,7 +21,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -39,7 +38,7 @@ public class ItemArmor extends Item
         protected ItemStack dispenseStack(IBlockSource source, ItemStack stack)
         {
             ItemStack itemstack = ItemArmor.dispenseArmor(source, stack);
-            return itemstack.func_190926_b() ? super.dispenseStack(source, stack) : itemstack;
+            return itemstack.isEmpty() ? super.dispenseStack(source, stack) : itemstack;
         }
     };
 
@@ -68,7 +67,7 @@ public class ItemArmor extends Item
 
         if (list.isEmpty())
         {
-            return ItemStack.field_190927_a;
+            return ItemStack.itemStack;
         }
         else
         {
@@ -231,7 +230,7 @@ public class ItemArmor extends Item
         EntityEquipmentSlot entityequipmentslot = EntityLiving.getSlotForItemStack(itemstack);
         ItemStack itemstack1 = worldIn.getItemStackFromSlot(entityequipmentslot);
 
-        if (itemstack1.func_190926_b())
+        if (itemstack1.isEmpty())
         {
             worldIn.setItemStackToSlot(entityequipmentslot, itemstack.copy());
             itemstack.func_190920_e(0);

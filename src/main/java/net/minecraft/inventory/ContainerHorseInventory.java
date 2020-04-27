@@ -83,7 +83,7 @@ public class ContainerHorseInventory extends Container
      */
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
     {
-        ItemStack itemstack = ItemStack.field_190927_a;
+        ItemStack itemstack = ItemStack.itemStack;
         Slot slot = this.inventorySlots.get(index);
 
         if (slot != null && slot.getHasStack())
@@ -95,31 +95,31 @@ public class ContainerHorseInventory extends Container
             {
                 if (!this.mergeItemStack(itemstack1, this.horseInventory.getSizeInventory(), this.inventorySlots.size(), true))
                 {
-                    return ItemStack.field_190927_a;
+                    return ItemStack.itemStack;
                 }
             }
             else if (this.getSlot(1).isItemValid(itemstack1) && !this.getSlot(1).getHasStack())
             {
                 if (!this.mergeItemStack(itemstack1, 1, 2, false))
                 {
-                    return ItemStack.field_190927_a;
+                    return ItemStack.itemStack;
                 }
             }
             else if (this.getSlot(0).isItemValid(itemstack1))
             {
                 if (!this.mergeItemStack(itemstack1, 0, 1, false))
                 {
-                    return ItemStack.field_190927_a;
+                    return ItemStack.itemStack;
                 }
             }
             else if (this.horseInventory.getSizeInventory() <= 2 || !this.mergeItemStack(itemstack1, 2, this.horseInventory.getSizeInventory(), false))
             {
-                return ItemStack.field_190927_a;
+                return ItemStack.itemStack;
             }
 
-            if (itemstack1.func_190926_b())
+            if (itemstack1.isEmpty())
             {
-                slot.putStack(ItemStack.field_190927_a);
+                slot.putStack(ItemStack.itemStack);
             }
             else
             {

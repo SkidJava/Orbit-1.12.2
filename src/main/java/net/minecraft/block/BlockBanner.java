@@ -3,7 +3,6 @@ package net.minecraft.block;
 import java.util.Random;
 import javax.annotation.Nullable;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockFaceShape;
@@ -94,13 +93,13 @@ public class BlockBanner extends BlockContainer
     private ItemStack getTileDataItemStack(World worldIn, BlockPos pos)
     {
         TileEntity tileentity = worldIn.getTileEntity(pos);
-        return tileentity instanceof TileEntityBanner ? ((TileEntityBanner)tileentity).func_190615_l() : ItemStack.field_190927_a;
+        return tileentity instanceof TileEntityBanner ? ((TileEntityBanner)tileentity).func_190615_l() : ItemStack.itemStack;
     }
 
     public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state)
     {
         ItemStack itemstack = this.getTileDataItemStack(worldIn, pos);
-        return itemstack.func_190926_b() ? new ItemStack(Items.BANNER) : itemstack;
+        return itemstack.isEmpty() ? new ItemStack(Items.BANNER) : itemstack;
     }
 
     /**
@@ -110,7 +109,7 @@ public class BlockBanner extends BlockContainer
     {
         ItemStack itemstack = this.getTileDataItemStack(worldIn, pos);
 
-        if (itemstack.func_190926_b())
+        if (itemstack.isEmpty())
         {
             super.dropBlockAsItemWithChance(worldIn, pos, state, chance, fortune);
         }

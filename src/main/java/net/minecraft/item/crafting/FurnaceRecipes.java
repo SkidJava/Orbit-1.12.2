@@ -142,7 +142,7 @@ public class FurnaceRecipes
             }
         }
 
-        return ItemStack.field_190927_a;
+        return ItemStack.itemStack;
     }
 
     /**

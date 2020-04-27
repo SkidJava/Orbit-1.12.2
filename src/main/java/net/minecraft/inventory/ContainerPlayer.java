@@ -50,7 +50,7 @@ public class ContainerPlayer extends Container
                 public boolean canTakeStack(EntityPlayer playerIn)
                 {
                     ItemStack itemstack = this.getStack();
-                    return (itemstack.func_190926_b() || playerIn.isCreative() || !EnchantmentHelper.func_190938_b(itemstack)) && super.canTakeStack(playerIn);
+                    return (itemstack.isEmpty() || playerIn.isCreative() || !EnchantmentHelper.func_190938_b(itemstack)) && super.canTakeStack(playerIn);
                 }
                 @Nullable
                 public String getSlotTexture()
@@ -118,7 +118,7 @@ public class ContainerPlayer extends Container
      */
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
     {
-        ItemStack itemstack = ItemStack.field_190927_a;
+        ItemStack itemstack = ItemStack.itemStack;
         Slot slot = this.inventorySlots.get(index);
 
         if (slot != null && slot.getHasStack())
@@ -131,7 +131,7 @@ public class ContainerPlayer extends Container
             {
                 if (!this.mergeItemStack(itemstack1, 9, 45, true))
                 {
-                    return ItemStack.field_190927_a;
+                    return ItemStack.itemStack;
                 }
 
                 slot.onSlotChange(itemstack1, itemstack);
@@ -140,14 +140,14 @@ public class ContainerPlayer extends Container
             {
                 if (!this.mergeItemStack(itemstack1, 9, 45, false))
                 {
-                    return ItemStack.field_190927_a;
+                    return ItemStack.itemStack;
                 }
             }
             else if (index >= 5 && index < 9)
             {
                 if (!this.mergeItemStack(itemstack1, 9, 45, false))
                 {
-                    return ItemStack.field_190927_a;
+                    return ItemStack.itemStack;
                 }
             }
             else if (entityequipmentslot.getSlotType() == EntityEquipmentSlot.Type.ARMOR && !this.inventorySlots.get(8 - entityequipmentslot.getIndex()).getHasStack())
@@ -156,38 +156,38 @@ public class ContainerPlayer extends Container
 
                 if (!this.mergeItemStack(itemstack1, i, i + 1, false))
                 {
-                    return ItemStack.field_190927_a;
+                    return ItemStack.itemStack;
                 }
             }
             else if (entityequipmentslot == EntityEquipmentSlot.OFFHAND && !this.inventorySlots.get(45).getHasStack())
             {
                 if (!this.mergeItemStack(itemstack1, 45, 46, false))
                 {
-                    return ItemStack.field_190927_a;
+                    return ItemStack.itemStack;
                 }
             }
             else if (index >= 9 && index < 36)
             {
                 if (!this.mergeItemStack(itemstack1, 36, 45, false))
                 {
-                    return ItemStack.field_190927_a;
+                    return ItemStack.itemStack;
                 }
             }
             else if (index >= 36 && index < 45)
             {
                 if (!this.mergeItemStack(itemstack1, 9, 36, false))
                 {
-                    return ItemStack.field_190927_a;
+                    return ItemStack.itemStack;
                 }
             }
             else if (!this.mergeItemStack(itemstack1, 9, 45, false))
             {
-                return ItemStack.field_190927_a;
+                return ItemStack.itemStack;
             }
 
-            if (itemstack1.func_190926_b())
+            if (itemstack1.isEmpty())
             {
-                slot.putStack(ItemStack.field_190927_a);
+                slot.putStack(ItemStack.itemStack);
             }
             else
             {
@@ -196,7 +196,7 @@ public class ContainerPlayer extends Container
 
             if (itemstack1.func_190916_E() == itemstack.func_190916_E())
             {
-                return ItemStack.field_190927_a;
+                return ItemStack.itemStack;
             }
 
             ItemStack itemstack2 = slot.func_190901_a(playerIn, itemstack1);

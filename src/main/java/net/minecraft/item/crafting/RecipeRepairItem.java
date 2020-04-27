@@ -21,7 +21,7 @@ public class RecipeRepairItem implements IRecipe
         {
             ItemStack itemstack = inv.getStackInSlot(i);
 
-            if (!itemstack.func_190926_b())
+            if (!itemstack.isEmpty())
             {
                 list.add(itemstack);
 
@@ -51,7 +51,7 @@ public class RecipeRepairItem implements IRecipe
         {
             ItemStack itemstack = inv.getStackInSlot(i);
 
-            if (!itemstack.func_190926_b())
+            if (!itemstack.isEmpty())
             {
                 list.add(itemstack);
 
@@ -61,7 +61,7 @@ public class RecipeRepairItem implements IRecipe
 
                     if (itemstack.getItem() != itemstack1.getItem() || itemstack1.func_190916_E() != 1 || itemstack.func_190916_E() != 1 || !itemstack1.getItem().isDamageable())
                     {
-                        return ItemStack.field_190927_a;
+                        return ItemStack.itemStack;
                     }
                 }
             }
@@ -89,17 +89,17 @@ public class RecipeRepairItem implements IRecipe
             }
         }
 
-        return ItemStack.field_190927_a;
+        return ItemStack.itemStack;
     }
 
     public ItemStack getRecipeOutput()
     {
-        return ItemStack.field_190927_a;
+        return ItemStack.itemStack;
     }
 
     public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv)
     {
-        NonNullList<ItemStack> nonnulllist = NonNullList.func_191197_a(inv.getSizeInventory(), ItemStack.field_190927_a);
+        NonNullList<ItemStack> nonnulllist = NonNullList.func_191197_a(inv.getSizeInventory(), ItemStack.itemStack);
 
         for (int i = 0; i < nonnulllist.size(); ++i)
         {

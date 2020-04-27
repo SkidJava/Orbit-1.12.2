@@ -3,12 +3,10 @@ package net.minecraft.block;
 import java.util.Random;
 import javax.annotation.Nullable;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -164,7 +162,7 @@ public class BlockStem extends BlockBush implements IGrowable
     public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state)
     {
         Item item = this.getSeedItem();
-        return item == null ? ItemStack.field_190927_a : new ItemStack(item);
+        return item == null ? ItemStack.itemStack : new ItemStack(item);
     }
 
     /**

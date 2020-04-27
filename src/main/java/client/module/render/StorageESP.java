@@ -35,7 +35,7 @@ public class StorageESP extends Module {
         final double y1 = ent.getPos().getY() - RenderManager.renderPosY;
         final double z1 = ent.getPos().getZ() - RenderManager.renderPosZ;
         AxisAlignedBB box = new AxisAlignedBB(x1, y1, z1, x1 + 1.0, y1 + 1.0, z1 + 1.0);
-        if (ent instanceof TileEntityChest) {
+        /*if (ent instanceof TileEntityChest) {
             final TileEntityChest chest = TileEntityChest.class.cast(ent);
             if (chest.adjacentChestZPos != null) {
                 box = new AxisAlignedBB(x1 + 0.0625, y1, z1 + 0.0625, x1 + 0.9375, y1 + 0.875, z1 + 1.9375);
@@ -53,27 +53,28 @@ public class StorageESP extends Module {
 
         if (ent instanceof TileEntityChest) {
             Color color = new Color(255, 255, 0, 100);
-            RenderUtils.filledBox(box, color.getRGB());
+            System.out.println("ccc");
+            RenderUtils.drawSelectionBoundingBox(box, color);
 
         } else if (ent instanceof TileEntityBrewingStand) {
             Color color = new Color(19, 255, 0, 100);
-            RenderUtils.filledBox(box, color.getRGB());
+            RenderUtils.drawSelectionBoundingBox(box, color);
 
         } else if (ent instanceof TileEntityEnderChest) {
             Color color = new Color(120, 5, 255, 100);
-            RenderUtils.filledBox(box, color.getRGB());
+            RenderUtils.drawSelectionBoundingBox(box, color);
         }
         if (ent instanceof TileEntityFurnace) {
             Color color = new Color(110, 110, 110, 100);
-            RenderUtils.filledBox(box, color.getRGB());
+            RenderUtils.drawSelectionBoundingBox(box, color);
 
         } else if (ent instanceof TileEntityDispenser || ent instanceof TileEntityHopper) {
             Color color = new Color(131, 240, 255, 100);
-            RenderUtils.filledBox(box, color.getRGB());
+            RenderUtils.drawSelectionBoundingBox(box, color);
 
         } else if (ent instanceof TileEntityMobSpawner) {
             Color color = new Color(255, 169, 156, 100);
-            RenderUtils.filledBox(box, color.getRGB());
-        }
+            RenderUtils.drawSelectionBoundingBox(box, color);
+        }*/
     }
 }

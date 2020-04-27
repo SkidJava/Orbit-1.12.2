@@ -87,11 +87,11 @@ public abstract class EntityLiving extends EntityLivingBase
     /** The active target the Task system uses for tracking */
     private EntityLivingBase attackTarget;
     private final EntitySenses senses;
-    private final NonNullList<ItemStack> inventoryHands = NonNullList.func_191197_a(2, ItemStack.field_190927_a);
+    private final NonNullList<ItemStack> inventoryHands = NonNullList.func_191197_a(2, ItemStack.itemStack);
 
     /** Chances for equipment in hands dropping when this entity dies. */
     protected float[] inventoryHandsDropChances = new float[2];
-    private final NonNullList<ItemStack> inventoryArmor = NonNullList.func_191197_a(4, ItemStack.field_190927_a);
+    private final NonNullList<ItemStack> inventoryArmor = NonNullList.func_191197_a(4, ItemStack.itemStack);
 
     /** Chances for armor dropping when this entity dies. */
     protected float[] inventoryArmorDropChances = new float[4];
@@ -300,7 +300,7 @@ public abstract class EntityLiving extends EntityLivingBase
 
             for (int j = 0; j < this.inventoryArmor.size(); ++j)
             {
-                if (!this.inventoryArmor.get(j).func_190926_b() && this.inventoryArmorDropChances[j] <= 1.0F)
+                if (!this.inventoryArmor.get(j).isEmpty() && this.inventoryArmorDropChances[j] <= 1.0F)
                 {
                     i += 1 + this.rand.nextInt(3);
                 }
@@ -308,7 +308,7 @@ public abstract class EntityLiving extends EntityLivingBase
 
             for (int k = 0; k < this.inventoryHands.size(); ++k)
             {
-                if (!this.inventoryHands.get(k).func_190926_b() && this.inventoryHandsDropChances[k] <= 1.0F)
+                if (!this.inventoryHands.get(k).isEmpty() && this.inventoryHandsDropChances[k] <= 1.0F)
                 {
                     i += 1 + this.rand.nextInt(3);
                 }
@@ -445,7 +445,7 @@ public abstract class EntityLiving extends EntityLivingBase
         {
             NBTTagCompound nbttagcompound = new NBTTagCompound();
 
-            if (!itemstack.func_190926_b())
+            if (!itemstack.isEmpty())
             {
                 itemstack.writeToNBT(nbttagcompound);
             }
@@ -460,7 +460,7 @@ public abstract class EntityLiving extends EntityLivingBase
         {
             NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 
-            if (!itemstack1.func_190926_b())
+            if (!itemstack1.isEmpty())
             {
                 itemstack1.writeToNBT(nbttagcompound1);
             }
@@ -676,7 +676,7 @@ public abstract class EntityLiving extends EntityLivingBase
         {
             for (EntityItem entityitem : this.world.getEntitiesWithinAABB(EntityItem.class, this.getEntityBoundingBox().expand(1.0D, 0.0D, 1.0D)))
             {
-                if (!entityitem.isDead && !entityitem.getEntityItem().func_190926_b() && !entityitem.cannotPickup())
+                if (!entityitem.isDead && !entityitem.getEntityItem().isEmpty() && !entityitem.cannotPickup())
                 {
                     this.updateEquipmentIfNeeded(entityitem);
                 }
@@ -697,7 +697,7 @@ public abstract class EntityLiving extends EntityLivingBase
         boolean flag = true;
         ItemStack itemstack1 = this.getItemStackFromSlot(entityequipmentslot);
 
-        if (!itemstack1.func_190926_b())
+        if (!itemstack1.isEmpty())
         {
             if (entityequipmentslot.getSlotType() == EntityEquipmentSlot.Type.HAND)
             {
@@ -770,7 +770,7 @@ public abstract class EntityLiving extends EntityLivingBase
                     d0 = 0.0D;
             }
 
-            if (!itemstack1.func_190926_b() && (double)(this.rand.nextFloat() - 0.1F) < d0)
+            if (!itemstack1.isEmpty() && (double)(this.rand.nextFloat() - 0.1F) < d0)
             {
                 this.entityDropItem(itemstack1, 0.0F);
             }
@@ -1039,7 +1039,7 @@ public abstract class EntityLiving extends EntityLivingBase
                 return this.inventoryArmor.get(slotIn.getIndex());
 
             default:
-                return ItemStack.field_190927_a;
+                return ItemStack.itemStack;
         }
     }
 
@@ -1082,7 +1082,7 @@ public abstract class EntityLiving extends EntityLivingBase
 
             boolean flag = d0 > 1.0D;
 
-            if (!itemstack.func_190926_b() && !EnchantmentHelper.func_190939_c(itemstack) && (wasRecentlyHit || flag) && (double)(this.rand.nextFloat() - (float)lootingModifier * 0.01F) < d0)
+            if (!itemstack.isEmpty() && !EnchantmentHelper.func_190939_c(itemstack) && (wasRecentlyHit || flag) && (double)(this.rand.nextFloat() - (float)lootingModifier * 0.01F) < d0)
             {
                 if (!flag && itemstack.isItemStackDamageable())
                 {
@@ -1134,7 +1134,7 @@ public abstract class EntityLiving extends EntityLivingBase
 
                     flag = false;
 
-                    if (itemstack.func_190926_b())
+                    if (itemstack.isEmpty())
                     {
                         Item item = getArmorByChance(entityequipmentslot, i);
 
@@ -1283,7 +1283,7 @@ public abstract class EntityLiving extends EntityLivingBase
     {
         float f = difficulty.getClampedAdditionalDifficulty();
 
-        if (!this.getHeldItemMainhand().func_190926_b() && this.rand.nextFloat() < 0.25F * f)
+        if (!this.getHeldItemMainhand().isEmpty() && this.rand.nextFloat() < 0.25F * f)
         {
             this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, EnchantmentHelper.addRandomEnchantment(this.rand, this.getHeldItemMainhand(), (int)(5.0F + f * (float)this.rand.nextInt(18)), false));
         }
@@ -1294,7 +1294,7 @@ public abstract class EntityLiving extends EntityLivingBase
             {
                 ItemStack itemstack = this.getItemStackFromSlot(entityequipmentslot);
 
-                if (!itemstack.func_190926_b() && this.rand.nextFloat() < 0.5F * f)
+                if (!itemstack.isEmpty() && this.rand.nextFloat() < 0.5F * f)
                 {
                     this.setItemStackToSlot(entityequipmentslot, EnchantmentHelper.addRandomEnchantment(this.rand, itemstack, (int)(5.0F + f * (float)this.rand.nextInt(18)), false));
                 }
@@ -1565,7 +1565,7 @@ public abstract class EntityLiving extends EntityLivingBase
             entityequipmentslot = EntityEquipmentSlot.FEET;
         }
 
-        if (!itemStackIn.func_190926_b() && !isItemStackInSlot(entityequipmentslot, itemStackIn) && entityequipmentslot != EntityEquipmentSlot.HEAD)
+        if (!itemStackIn.isEmpty() && !isItemStackInSlot(entityequipmentslot, itemStackIn) && entityequipmentslot != EntityEquipmentSlot.HEAD)
         {
             return false;
         }

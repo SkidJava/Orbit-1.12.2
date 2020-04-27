@@ -26,7 +26,7 @@ import net.minecraft.world.storage.loot.LootTable;
 
 public abstract class EntityMinecartContainer extends EntityMinecart implements ILockableContainer, ILootContainer
 {
-    private NonNullList<ItemStack> minecartContainerItems = NonNullList.func_191197_a(36, ItemStack.field_190927_a);
+    private NonNullList<ItemStack> minecartContainerItems = NonNullList.func_191197_a(36, ItemStack.itemStack);
 
     /**
      * When set to true, the minecart will drop all items when setDead() is called. When false (such as when travelling
@@ -60,7 +60,7 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
     {
         for (ItemStack itemstack : this.minecartContainerItems)
         {
-            if (!itemstack.func_190926_b())
+            if (!itemstack.isEmpty())
             {
                 return false;
             }
@@ -95,13 +95,13 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
         this.addLoot(null);
         ItemStack itemstack = this.minecartContainerItems.get(index);
 
-        if (itemstack.func_190926_b())
+        if (itemstack.isEmpty())
         {
-            return ItemStack.field_190927_a;
+            return ItemStack.itemStack;
         }
         else
         {
-            this.minecartContainerItems.set(index, ItemStack.field_190927_a);
+            this.minecartContainerItems.set(index, ItemStack.itemStack);
             return itemstack;
         }
     }
@@ -114,7 +114,7 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
         this.addLoot(null);
         this.minecartContainerItems.set(index, stack);
 
-        if (!stack.func_190926_b() && stack.func_190916_E() > this.getInventoryStackLimit())
+        if (!stack.isEmpty() && stack.func_190916_E() > this.getInventoryStackLimit())
         {
             stack.func_190920_e(this.getInventoryStackLimit());
         }
@@ -230,7 +230,7 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
     protected void readEntityFromNBT(NBTTagCompound compound)
     {
         super.readEntityFromNBT(compound);
-        this.minecartContainerItems = NonNullList.func_191197_a(this.getSizeInventory(), ItemStack.field_190927_a);
+        this.minecartContainerItems = NonNullList.func_191197_a(this.getSizeInventory(), ItemStack.itemStack);
 
         if (compound.hasKey("LootTable", 8))
         {

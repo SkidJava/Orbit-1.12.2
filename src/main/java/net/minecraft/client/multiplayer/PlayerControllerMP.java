@@ -53,7 +53,7 @@ public class PlayerControllerMP
     private BlockPos currentBlock = new BlockPos(-1, -1, -1);
 
     /** The Item currently being used to destroy a block */
-    private ItemStack currentItemHittingBlock = ItemStack.field_190927_a;
+    private ItemStack currentItemHittingBlock = ItemStack.itemStack;
 
     /** Current block damage (MP) */
     private float curBlockDamageMP;
@@ -142,7 +142,7 @@ public class PlayerControllerMP
             {
                 ItemStack itemstack = this.mc.thePlayer.getHeldItemMainhand();
 
-                if (itemstack.func_190926_b())
+                if (itemstack.isEmpty())
                 {
                     return false;
                 }
@@ -154,7 +154,7 @@ public class PlayerControllerMP
             }
         }
 
-        if (this.currentGameType.isCreative() && !this.mc.thePlayer.getHeldItemMainhand().func_190926_b() && this.mc.thePlayer.getHeldItemMainhand().getItem() instanceof ItemSword)
+        if (this.currentGameType.isCreative() && !this.mc.thePlayer.getHeldItemMainhand().isEmpty() && this.mc.thePlayer.getHeldItemMainhand().getItem() instanceof ItemSword)
         {
             return false;
         }
@@ -189,13 +189,13 @@ public class PlayerControllerMP
                 {
                     ItemStack itemstack1 = this.mc.thePlayer.getHeldItemMainhand();
 
-                    if (!itemstack1.func_190926_b())
+                    if (!itemstack1.isEmpty())
                     {
                         itemstack1.onBlockDestroyed(world, iblockstate, pos, this.mc.thePlayer);
 
-                        if (itemstack1.func_190926_b())
+                        if (itemstack1.isEmpty())
                         {
-                            this.mc.thePlayer.setHeldItem(EnumHand.MAIN_HAND, ItemStack.field_190927_a);
+                            this.mc.thePlayer.setHeldItem(EnumHand.MAIN_HAND, ItemStack.itemStack);
                         }
                     }
                 }
@@ -221,7 +221,7 @@ public class PlayerControllerMP
             {
                 ItemStack itemstack = this.mc.thePlayer.getHeldItemMainhand();
 
-                if (itemstack.func_190926_b())
+                if (itemstack.isEmpty())
                 {
                     return false;
                 }
@@ -383,9 +383,9 @@ public class PlayerControllerMP
     private boolean isHittingPosition(BlockPos pos)
     {
         ItemStack itemstack = this.mc.thePlayer.getHeldItemMainhand();
-        boolean flag = this.currentItemHittingBlock.func_190926_b() && itemstack.func_190926_b();
+        boolean flag = this.currentItemHittingBlock.isEmpty() && itemstack.isEmpty();
 
-        if (!this.currentItemHittingBlock.func_190926_b() && !itemstack.func_190926_b())
+        if (!this.currentItemHittingBlock.isEmpty() && !itemstack.isEmpty())
         {
             flag = itemstack.getItem() == this.currentItemHittingBlock.getItem() && ItemStack.areItemStackTagsEqual(itemstack, this.currentItemHittingBlock) && (itemstack.isItemStackDamageable() || itemstack.getMetadata() == this.currentItemHittingBlock.getMetadata());
         }
@@ -426,7 +426,7 @@ public class PlayerControllerMP
             {
                 IBlockState iblockstate = worldIn.getBlockState(stack);
 
-                if ((!player.isSneaking() || player.getHeldItemMainhand().func_190926_b() && player.getHeldItemOffhand().func_190926_b()) && iblockstate.getBlock().onBlockActivated(worldIn, stack, iblockstate, player, vec, pos, f, f1, f2))
+                if ((!player.isSneaking() || player.getHeldItemMainhand().isEmpty() && player.getHeldItemOffhand().isEmpty()) && iblockstate.getBlock().onBlockActivated(worldIn, stack, iblockstate, player, vec, pos, f, f1, f2))
                 {
                     flag = true;
                 }
@@ -446,7 +446,7 @@ public class PlayerControllerMP
 
             if (!flag && this.currentGameType != GameType.SPECTATOR)
             {
-                if (itemstack.func_190926_b())
+                if (itemstack.isEmpty())
                 {
                     return EnumActionResult.PASS;
                 }
@@ -602,7 +602,7 @@ public class PlayerControllerMP
      */
     public void sendPacketDropItem(ItemStack itemStackIn)
     {
-        if (this.currentGameType.isCreative() && !itemStackIn.func_190926_b())
+        if (this.currentGameType.isCreative() && !itemStackIn.isEmpty())
         {
             this.connection.sendPacket(new CPacketCreativeInventoryAction(-1, itemStackIn));
         }

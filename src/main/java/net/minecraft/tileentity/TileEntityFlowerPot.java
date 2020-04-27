@@ -71,7 +71,7 @@ public class TileEntityFlowerPot extends TileEntity
 
     public ItemStack getFlowerItemStack()
     {
-        return this.flowerPotItem == null ? ItemStack.field_190927_a : new ItemStack(this.flowerPotItem, 1, this.flowerPotData);
+        return this.flowerPotItem == null ? ItemStack.itemStack : new ItemStack(this.flowerPotItem, 1, this.flowerPotData);
     }
 
     @Nullable

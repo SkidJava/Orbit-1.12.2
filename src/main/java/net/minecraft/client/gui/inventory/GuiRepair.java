@@ -4,7 +4,6 @@ import io.netty.buffer.Unpooled;
 import java.io.IOException;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiTextField;
-import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -204,10 +203,10 @@ public class GuiRepair extends GuiContainer implements IContainerListener
     {
         if (slotInd == 0)
         {
-            this.nameField.setText(stack.func_190926_b() ? "" : stack.getDisplayName());
-            this.nameField.setEnabled(!stack.func_190926_b());
+            this.nameField.setText(stack.isEmpty() ? "" : stack.getDisplayName());
+            this.nameField.setEnabled(!stack.isEmpty());
 
-            if (!stack.func_190926_b())
+            if (!stack.isEmpty())
             {
                 this.renameItem();
             }

@@ -23,7 +23,7 @@ public class InventoryCrafting implements IInventory
 
     public InventoryCrafting(Container eventHandlerIn, int width, int height)
     {
-        this.stackList = NonNullList.func_191197_a(width * height, ItemStack.field_190927_a);
+        this.stackList = NonNullList.func_191197_a(width * height, ItemStack.itemStack);
         this.eventHandler = eventHandlerIn;
         this.inventoryWidth = width;
         this.inventoryHeight = height;
@@ -41,7 +41,7 @@ public class InventoryCrafting implements IInventory
     {
         for (ItemStack itemstack : this.stackList)
         {
-            if (!itemstack.func_190926_b())
+            if (!itemstack.isEmpty())
             {
                 return false;
             }
@@ -55,7 +55,7 @@ public class InventoryCrafting implements IInventory
      */
     public ItemStack getStackInSlot(int index)
     {
-        return index >= this.getSizeInventory() ? ItemStack.field_190927_a : this.stackList.get(index);
+        return index >= this.getSizeInventory() ? ItemStack.itemStack : this.stackList.get(index);
     }
 
     /**
@@ -63,7 +63,7 @@ public class InventoryCrafting implements IInventory
      */
     public ItemStack getStackInRowAndColumn(int row, int column)
     {
-        return row >= 0 && row < this.inventoryWidth && column >= 0 && column <= this.inventoryHeight ? this.getStackInSlot(row + column * this.inventoryWidth) : ItemStack.field_190927_a;
+        return row >= 0 && row < this.inventoryWidth && column >= 0 && column <= this.inventoryHeight ? this.getStackInSlot(row + column * this.inventoryWidth) : ItemStack.itemStack;
     }
 
     /**
@@ -105,7 +105,7 @@ public class InventoryCrafting implements IInventory
     {
         ItemStack itemstack = ItemStackHelper.getAndSplit(this.stackList, index, count);
 
-        if (!itemstack.func_190926_b())
+        if (!itemstack.isEmpty())
         {
             this.eventHandler.onCraftMatrixChanged(this);
         }

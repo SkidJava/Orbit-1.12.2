@@ -11,7 +11,7 @@ import net.minecraft.util.text.TextComponentTranslation;
 
 public class InventoryCraftResult implements IInventory
 {
-    private final NonNullList<ItemStack> stackResult = NonNullList.func_191197_a(1, ItemStack.field_190927_a);
+    private final NonNullList<ItemStack> stackResult = NonNullList.func_191197_a(1, ItemStack.itemStack);
     private IRecipe field_193057_b;
 
     /**
@@ -26,7 +26,7 @@ public class InventoryCraftResult implements IInventory
     {
         for (ItemStack itemstack : this.stackResult)
         {
-            if (!itemstack.func_190926_b())
+            if (!itemstack.isEmpty())
             {
                 return false;
             }

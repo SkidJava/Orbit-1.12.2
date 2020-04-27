@@ -242,7 +242,7 @@ public class EntityPigZombie extends EntityZombie
 
     protected ItemStack func_190732_dj()
     {
-        return ItemStack.field_190927_a;
+        return ItemStack.itemStack;
     }
 
     public boolean func_191990_c(EntityPlayer p_191990_1_)

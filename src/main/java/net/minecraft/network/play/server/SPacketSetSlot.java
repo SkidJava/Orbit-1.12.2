@@ -10,7 +10,7 @@ public class SPacketSetSlot implements Packet<INetHandlerPlayClient>
 {
     private int windowId;
     private int slot;
-    private ItemStack item = ItemStack.field_190927_a;
+    private ItemStack item = ItemStack.itemStack;
 
     public SPacketSetSlot()
     {

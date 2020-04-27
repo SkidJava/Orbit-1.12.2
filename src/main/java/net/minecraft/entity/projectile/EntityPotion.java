@@ -7,7 +7,6 @@ import net.minecraft.entity.EntityAreaEffectCloud;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityBlaze;
 import net.minecraft.entity.monster.EntityEnderman;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
@@ -59,7 +58,7 @@ public class EntityPotion extends EntityThrowable
     {
         super(worldIn, x, y, z);
 
-        if (!potionDamageIn.func_190926_b())
+        if (!potionDamageIn.isEmpty())
         {
             this.setItem(potionDamageIn);
         }
@@ -67,7 +66,7 @@ public class EntityPotion extends EntityThrowable
 
     protected void entityInit()
     {
-        this.getDataManager().register(ITEM, ItemStack.field_190927_a);
+        this.getDataManager().register(ITEM, ItemStack.itemStack);
     }
 
     public ItemStack getPotion()
@@ -265,7 +264,7 @@ public class EntityPotion extends EntityThrowable
         super.readEntityFromNBT(compound);
         ItemStack itemstack = new ItemStack(compound.getCompoundTag("Potion"));
 
-        if (itemstack.func_190926_b())
+        if (itemstack.isEmpty())
         {
             this.setDead();
         }
@@ -283,7 +282,7 @@ public class EntityPotion extends EntityThrowable
         super.writeEntityToNBT(compound);
         ItemStack itemstack = this.getPotion();
 
-        if (!itemstack.func_190926_b())
+        if (!itemstack.isEmpty())
         {
             compound.setTag("Potion", itemstack.writeToNBT(new NBTTagCompound()));
         }
