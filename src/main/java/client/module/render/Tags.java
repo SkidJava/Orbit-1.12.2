@@ -3,9 +3,11 @@ package client.module.render;
 import client.event.EventTarget;
 import client.event.events.render.EventNameTags;
 import client.event.events.render.EventRender3D;
+import client.manager.Managers;
 import client.manager.managers.FriendManager;
 import client.module.Module;
 import client.setting.Setting;
+import net.mcleaks.MCLeaks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
@@ -45,6 +47,8 @@ public class Tags extends Module {
                 double posY = ent.lastTickPosY + (ent.posY - ent.lastTickPosY) * event.particlTicks - RenderManager.renderPosY + ent.height + 0.5D;
                 double posZ = ent.lastTickPosZ + (ent.posZ - ent.lastTickPosZ) * event.particlTicks - RenderManager.renderPosZ;
                 String str = ent.getDisplayName().getFormattedText();
+                if (Managers.getManagers().moduleManager.getModule(NameProtect.class).isEnabled())
+                    str = str.replace(MCLeaks.isAltActive() ? MCLeaks.getMCName() : Minecraft.getMinecraft().getSession().getUsername(), "User");
                 if (FriendManager.isFriend(ent.getName())) str = "§b" + FriendManager.getAliasName(ent.getName());
                 String colorString = this.formatChar.toString();
                 double health = MathUtils.round(((EntityPlayer) ent).getHealth(), 2);

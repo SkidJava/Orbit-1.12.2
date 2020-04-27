@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.Random;
+
+import net.mcleaks.MCLeaks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
@@ -685,7 +687,8 @@ public class FontRenderer implements IResourceManagerReloadListener
             this.setColor(this.red, this.blue, this.green, this.alpha);
             this.posX = x;
             this.posY = y;
-            if (Managers.getManagers().moduleManager.getModule(NameProtect.class).isEnabled()) text = text.replace(Minecraft.getMinecraft().getSession().getUsername(), "User");
+            String names = MCLeaks.isAltActive() ? MCLeaks.getMCName() : Minecraft.getMinecraft().getSession().getUsername();
+            if (Managers.getManagers().moduleManager.getModule(NameProtect.class).isEnabled()) text = text.replace(names, "User");
             this.renderStringAtPos(text, dropShadow);
             return (int)this.posX;
         }

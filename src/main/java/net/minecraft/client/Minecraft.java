@@ -8,6 +8,7 @@ import client.event.events.misc.EventMiddleClick;
 import client.event.events.render.EventOpenScreen;
 import client.event.events.render.EventRenderTickEnd;
 import client.event.events.update.EventTick;
+import client.gui.screen.GuiClientMainMenu;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Queues;
 import com.google.common.collect.Sets;
@@ -609,7 +610,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo
 
         if (this.serverName != null)
         {
-            this.displayGuiScreen(new GuiConnecting(new GuiMainMenu(), this, this.serverName, this.serverPort));
+            this.displayGuiScreen(new GuiConnecting(new GuiClientMainMenu(), this, this.serverName, this.serverPort));
         }
         else
         {
@@ -1055,14 +1056,14 @@ public class Minecraft implements IThreadListener, ISnooperInfo
 
         if (guiScreenIn == null && this.theWorld == null)
         {
-            guiScreenIn = new GuiMainMenu();
+            guiScreenIn = new GuiClientMainMenu();
         }
         else if (guiScreenIn == null && this.thePlayer.getHealth() <= 0.0F)
         {
             guiScreenIn = new GuiGameOver(null);
         }
 
-        if (guiScreenIn instanceof GuiMainMenu || guiScreenIn instanceof GuiMultiplayer)
+        if (guiScreenIn instanceof GuiClientMainMenu || guiScreenIn instanceof GuiMultiplayer)
         {
             this.gameSettings.showDebugInfo = false;
             GuiIngame.getChatGUI().clearChatMessages(true);

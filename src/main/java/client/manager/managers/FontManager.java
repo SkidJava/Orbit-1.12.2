@@ -10,6 +10,12 @@ import java.util.Map;
 
 public class FontManager extends AbstManager {
 
+    private final String mineFont = "orbitron.ttf";
+    private final int mineFontSize = 25;
+
+    private final String clientdefFont = "orbitron.ttf";
+    private final int clientdefFontSize = 25;
+
     private final String clientFont = "orbitron.ttf";
     private final int clientFontSize = 30;
 
@@ -27,6 +33,8 @@ public class FontManager extends AbstManager {
     }
 
     private void createDefaultFont() {
+        createFontData(mineFont, mineFontSize);
+        createFontData(clientdefFont, clientdefFontSize);
         createFontData(clientFont, clientFontSize);
         createFontData(clientNameFont, clientNameFontSize);
         createFontData(hudFont, hudFontSize);

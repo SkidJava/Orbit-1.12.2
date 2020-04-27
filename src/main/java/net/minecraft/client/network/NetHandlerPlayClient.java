@@ -1,6 +1,7 @@
 package net.minecraft.client.network;
 
 import client.event.events.player.EventPlayerVelocity;
+import client.gui.screen.GuiClientMainMenu;
 import com.google.common.collect.Maps;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
@@ -888,7 +889,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
         }
         else
         {
-            this.gameController.displayGuiScreen(new GuiDisconnected(new GuiMultiplayer(new GuiMainMenu()), "disconnect.lost", reason));
+            this.gameController.displayGuiScreen(new GuiDisconnected(new GuiMultiplayer(new GuiClientMainMenu()), "disconnect.lost", reason));
         }
     }
 

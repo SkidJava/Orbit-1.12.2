@@ -11,6 +11,7 @@ import client.manager.managers.AccountManager;
 import client.manager.managers.BanManager;
 import client.manager.managers.StarManager;
 import client.utils.render.RenderUtils;
+import net.mcleaks.MCLeaks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -126,8 +127,9 @@ public class GuiAccountManage extends GuiScreen {
             }
         }
         this.drawDefaultBackground();
-        RenderUtils.drawBorderedRect(8.0F, 8.0F, 12.0F + fontRendererObj.getStringWidth(mc.session.getUsername()), 20.0F, 1.0F,525883, Integer.MIN_VALUE);
-        drawString(this.fontRendererObj, mc.session.getUsername(), 10, 10, -7829368);
+        String names = MCLeaks.isAltActive() ? MCLeaks.getMCName() : mc.session.getUsername();
+        RenderUtils.drawBorderedRect(8.0F, 8.0F, 12.0F + fontRendererObj.getStringWidth(names), 20.0F, 1.0F,525883, Integer.MIN_VALUE);
+        drawString(this.fontRendererObj, names, 10, 10, -7829368);
 //        drawString(this.fontRendererObj, "Current Service: " + service.currentService.name(), 10, 20, -7829368);
 
         drawCenteredString(this.fontRendererObj, "Account Manager - " + AccountManager.accountList.size() + " alts", width / 2, 10, -1);

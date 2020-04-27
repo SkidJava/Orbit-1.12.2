@@ -2,10 +2,13 @@ package net.minecraft.client.renderer.entity;
 
 import client.manager.Managers;
 import client.module.render.ESP;
+import client.module.render.NameProtect;
 import client.utils.render.OutlineUtils;
 import com.google.common.collect.Lists;
 import java.nio.FloatBuffer;
 import java.util.List;
+
+import net.mcleaks.MCLeaks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.model.ModelBase;
@@ -559,6 +562,8 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
                 if (d0 < (double)(f * f))
                 {
                     String s = entity.getDisplayName().getFormattedText();
+                    if (Managers.getManagers().moduleManager.getModule(NameProtect.class).isEnabled())
+                        s = s.replace(MCLeaks.isAltActive() ? MCLeaks.getMCName() : Minecraft.getMinecraft().getSession().getUsername(), "User");
                     GlStateManager.alphaFunc(516, 0.1F);
                     this.renderEntityName(entity, x, y, z, s, d0);
                 }

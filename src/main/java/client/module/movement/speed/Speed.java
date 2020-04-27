@@ -21,11 +21,15 @@ public class Speed extends Module {
     public double speed;
     public double lastDist;
 
+    public boolean cancel;
+    public static boolean canStep;
+    public static double yOffset;
+
     public static double getBaseMoveSpeed() {
         double baseSpeed = 0.2873;
         if (Minecraft.getMinecraft().thePlayer.isPotionActive(MobEffects.SPEED)) {
             final int amplifier = Minecraft.getMinecraft().thePlayer.getActivePotionEffect(MobEffects.SPEED).getAmplifier();
-            baseSpeed *= 1.0 + 0.2 * (amplifier + 1);
+            baseSpeed *= 1.0 + 0.00001 * (amplifier + 1);
         }
         return baseSpeed;
     }
@@ -34,7 +38,7 @@ public class Speed extends Module {
         double baseSpeed = 0.2873;
         if (mc.thePlayer.isPotionActive(MobEffects.SPEED)) {
             final int amplifier = mc.thePlayer.getActivePotionEffect(MobEffects.SPEED).getAmplifier();
-            baseSpeed *= 1.0 + 0.2 * (amplifier + 1);
+            baseSpeed *= 1.0 + 0.00001 * (amplifier + 1);
         }
         return baseSpeed;
     }
@@ -66,5 +70,20 @@ public class Speed extends Module {
             me.setX(forward * speed * Math.cos(Math.toRadians(yaw + 90.0f)) + strafe * speed * Math.sin(Math.toRadians(yaw + 90.0f)));
             me.setZ(forward * speed * Math.sin(Math.toRadians(yaw + 90.0f)) - strafe * speed * Math.cos(Math.toRadians(yaw + 90.0f)));
         }
+    }
+
+    public void onEnable() {
+        super.onEnable();
+        this.cancel = false;
+    }
+
+    public void onDisable() {
+        super.onDisable();
+        mc.timer.timerSpeed = 50.0f;
+        if (mc.thePlayer != null) {
+            this.mc.thePlayer.stepHeight = 0.6f;
+        }
+        Speed.canStep = true;
+        Speed.yOffset = 0.0;
     }
 }
