@@ -1,5 +1,6 @@
 package net.minecraft.client.multiplayer;
 
+import client.event.events.misc.EventBlockBreaking;
 import io.netty.buffer.Unpooled;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCommandBlock;
@@ -210,6 +211,8 @@ public class PlayerControllerMP
      */
     public boolean clickBlock(BlockPos loc, EnumFacing face)
     {
+        EventBlockBreaking event = new EventBlockBreaking(EventBlockBreaking.EnumBlock.CLICK, loc, face);
+        event.call();
         if (this.currentGameType.isAdventure())
         {
             if (this.currentGameType == GameType.SPECTATOR)
@@ -300,6 +303,10 @@ public class PlayerControllerMP
 
     public boolean onPlayerDamageBlock(BlockPos posBlock, EnumFacing directionFacing)
     {
+        EventBlockBreaking event = new EventBlockBreaking(EventBlockBreaking.EnumBlock.DAMAGE, posBlock,
+                directionFacing);
+        event.call();
+
         this.syncCurrentPlayItem();
 
         if (this.blockHitDelay > 0)

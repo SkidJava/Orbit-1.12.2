@@ -55,11 +55,11 @@ public class Aura extends Module {
         managers.settingManager.addSetting(new Setting(this, "Monsters", false));
         managers.settingManager.addSetting(new Setting(this, "Mobs", false));
         managers.settingManager.addSetting(new Setting(this, "Friend", false));
-        managers.settingManager.addSetting(new Setting(this, "Critical", false));
+        managers.settingManager.addSetting(new Setting(this, "Critical", true));
         managers.settingManager.addSetting(new Setting(this, "Teammate", false));
 
-        managers.settingManager.addSetting(new Setting(this, "Delay", 8.0F, 0.0F, 20.0F, false));
-        managers.settingManager.addSetting(new Setting(this, "Range", 3.75F, 0.0F, 6.0F, false));
+        managers.settingManager.addSetting(new Setting(this, "Delay", 6.0F, 0.0F, 20.0F, false));
+        managers.settingManager.addSetting(new Setting(this, "Range", 4.75F, 0.0F, 6.0F, false));
         managers.settingManager.addSetting(new Setting(this, "Block Range", 4F, 0.0F, 6.0F, true));
     }
 

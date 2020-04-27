@@ -8,4 +8,8 @@ public class PostPacketSendEvent extends Event {
     public PostPacketSendEvent(Packet packet) {
         this.packet = packet;
     }
+
+    public Packet getPacket() {
+        return this.packet;
+    }
 }
