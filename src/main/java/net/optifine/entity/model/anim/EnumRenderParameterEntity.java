@@ -43,7 +43,7 @@ public enum EnumRenderParameterEntity implements IExpression
             {
                 RenderLivingBase renderlivingbase = (RenderLivingBase)render;
 
-                switch (this)
+                /*switch (this)
                 {
                     case LIMB_SWING:
                         return renderlivingbase.renderLimbSwing;
@@ -62,7 +62,7 @@ public enum EnumRenderParameterEntity implements IExpression
 
                     case SCALE:
                         return renderlivingbase.renderScaleFactor;
-                }
+                }*/
             }
 
             return 0.0F;

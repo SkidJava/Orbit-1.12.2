@@ -625,7 +625,6 @@ public class EntityRenderer implements IResourceManagerReloadListener
                 {
                     Config.zoomMode = true;
                     this.mc.gameSettings.smoothCamera = true;
-                    this.mc.renderGlobal.displayListEntitiesDirty = true;
                 }
 
                 if (Config.zoomMode)
@@ -639,7 +638,6 @@ public class EntityRenderer implements IResourceManagerReloadListener
                 this.mc.gameSettings.smoothCamera = false;
                 this.mouseFilterXAxis = new MouseFilter();
                 this.mouseFilterYAxis = new MouseFilter();
-                this.mc.renderGlobal.displayListEntitiesDirty = true;
             }
 
             if (entity instanceof EntityLivingBase && ((EntityLivingBase)entity).getHealth() <= 0.0F)
@@ -2949,7 +2947,6 @@ public class EntityRenderer implements IResourceManagerReloadListener
 
             for (int i1 = 0; i1 < 100; ++i1)
             {
-                renderglobal.displayListEntitiesDirty = true;
                 renderglobal.setupTerrain(p_loadAllVisibleChunks_1_, p_loadAllVisibleChunks_2_, p_loadAllVisibleChunks_4_, this.frameCount++, p_loadAllVisibleChunks_5_);
 
                 if (!renderglobal.hasNoChunkUpdates())

@@ -701,24 +701,6 @@ public class Shaders
 
         boolean flag2 = false;
 
-        if (Config.isAntialiasing())
-        {
-            SMCLog.info("Shaders can not be loaded, Antialiasing is enabled: " + Config.getAntialiasingLevel() + "x");
-            flag2 = true;
-        }
-
-        if (Config.isAnisotropicFiltering())
-        {
-            SMCLog.info("Shaders can not be loaded, Anisotropic Filtering is enabled: " + Config.getAnisotropicFilterLevel() + "x");
-            flag2 = true;
-        }
-
-        if (Config.isFastRender())
-        {
-            SMCLog.info("Shaders can not be loaded, Fast Render is enabled.");
-            flag2 = true;
-        }
-
         String s = shadersConfig.getProperty(EnumShaderOption.SHADER_PACK.getPropertyKey(), packNameDefault);
 
         if (!s.isEmpty() && !s.equals(packNameNone) && !flag2)

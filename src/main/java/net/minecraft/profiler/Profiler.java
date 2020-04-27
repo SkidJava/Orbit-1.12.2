@@ -78,20 +78,6 @@ public class Profiler
             }
         }
 
-        if (Config.isFastRender())
-        {
-            int j = name.hashCode();
-
-            if (j == HASH_RENDER && name.equals("render"))
-            {
-                GlStateManager.clearEnabled = false;
-            }
-            else if (j == HASH_DISPLAY && name.equals("display"))
-            {
-                GlStateManager.clearEnabled = true;
-            }
-        }
-
         if (this.profilerLocalEnabled)
         {
             if (this.profilingEnabled)

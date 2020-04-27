@@ -157,17 +157,6 @@ public class ModelRenderer
 
             int i = 0;
 
-            if (this.textureLocation != null && !this.renderGlobal.renderOverlayDamaged)
-            {
-                if (this.renderGlobal.renderOverlayEyes)
-                {
-                    return;
-                }
-
-                i = GlStateManager.getBoundTexture();
-                Config.getTextureManager().bindTexture(this.textureLocation);
-            }
-
             if (this.modelUpdater != null)
             {
                 this.modelUpdater.update();
@@ -284,17 +273,6 @@ public class ModelRenderer
             }
 
             int i = 0;
-
-            if (this.textureLocation != null && !this.renderGlobal.renderOverlayDamaged)
-            {
-                if (this.renderGlobal.renderOverlayEyes)
-                {
-                    return;
-                }
-
-                i = GlStateManager.getBoundTexture();
-                Config.getTextureManager().bindTexture(this.textureLocation);
-            }
 
             if (this.modelUpdater != null)
             {

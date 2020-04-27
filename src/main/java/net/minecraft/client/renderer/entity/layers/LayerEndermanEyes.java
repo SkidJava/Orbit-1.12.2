@@ -40,9 +40,7 @@ public class LayerEndermanEyes implements LayerRenderer<EntityEnderman>
             Shaders.beginSpiderEyes();
         }
 
-        Config.getRenderGlobal().renderOverlayEyes = true;
         this.endermanRenderer.getMainModel().render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-        Config.getRenderGlobal().renderOverlayEyes = false;
 
         if (Config.isShaders())
         {

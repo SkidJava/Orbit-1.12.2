@@ -47,9 +47,7 @@ public class LayerSpiderEyes<T extends EntitySpider> implements LayerRenderer<T>
             Shaders.beginSpiderEyes();
         }
 
-        Config.getRenderGlobal().renderOverlayEyes = true;
         this.spiderRenderer.getMainModel().render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-        Config.getRenderGlobal().renderOverlayEyes = false;
 
         if (Config.isShaders())
         {

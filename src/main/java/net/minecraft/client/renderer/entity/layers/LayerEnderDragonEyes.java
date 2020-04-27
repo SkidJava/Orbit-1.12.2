@@ -40,9 +40,7 @@ public class LayerEnderDragonEyes implements LayerRenderer<EntityDragon>
             Shaders.beginSpiderEyes();
         }
 
-        Config.getRenderGlobal().renderOverlayEyes = true;
         this.dragonRenderer.getMainModel().render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-        Config.getRenderGlobal().renderOverlayEyes = false;
 
         if (Config.isShaders())
         {

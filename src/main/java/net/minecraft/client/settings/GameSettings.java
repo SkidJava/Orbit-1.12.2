@@ -1627,7 +1627,6 @@ public class GameSettings
         if (p_setOptionFloatValueOF_1_ == GameSettings.Options.CLOUD_HEIGHT)
         {
             this.ofCloudsHeight = p_setOptionFloatValueOF_2_;
-            this.mc.renderGlobal.resetClouds();
         }
 
         if (p_setOptionFloatValueOF_1_ == GameSettings.Options.AO_LEVEL)
@@ -1805,7 +1804,6 @@ public class GameSettings
             }
 
             this.updateRenderClouds();
-            this.mc.renderGlobal.resetClouds();
         }
 
         if (p_setOptionValueOF_1_ == GameSettings.Options.TREES)
