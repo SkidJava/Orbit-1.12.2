@@ -1,11 +1,7 @@
 package net.minecraft.client.network;
 
-import client.alt.mcleaks.APIDownException;
-import client.alt.mcleaks.InvalidTokenException;
-import client.alt.mcleaks.MCLeaksAPIConnection;
-import client.alt.mcleaks.MCLeaksAccount;
-import client.exceptions.APIErrorException;
-import client.exceptions.InvalidResponseException;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.exceptions.AuthenticationException;
 import com.mojang.authlib.exceptions.AuthenticationUnavailableException;
@@ -14,11 +10,18 @@ import com.mojang.authlib.minecraft.MinecraftSessionService;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
 import java.math.BigInteger;
+import java.net.HttpURLConnection;
+import java.net.InetSocketAddress;
+import java.net.URL;
 import java.security.PublicKey;
 import javax.annotation.Nullable;
 import javax.crypto.SecretKey;
 
+import net.mcleaks.MCLeaks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiDisconnected;
 import net.minecraft.client.gui.GuiScreen;
@@ -58,7 +61,56 @@ public class NetHandlerLoginClient implements INetHandlerLoginClient {
         PublicKey publickey = packetIn.getPublicKey();
         String s1 = (new BigInteger(CryptManager.getServerIdHash(s, publickey, secretkey))).toString(16);
 
-        if (this.mc.getCurrentServerData() != null && this.mc.getCurrentServerData().isOnLAN()) {
+        if (MCLeaks.isAltActive()) {
+            String mcLeaksSession = MCLeaks.getMCLeaksSession();
+            String mcName = MCLeaks.getMCName();
+            String server = new StringBuilder().append(((InetSocketAddress) this.networkManager.getRemoteAddress()).getHostName()).append(":").append(((InetSocketAddress) this.networkManager.getRemoteAddress()).getPort()).toString();
+            try {
+                String jsonBody = new StringBuilder().append("{\"session\":\"").append(mcLeaksSession)
+                        .append("\",\"mcname\":\"").append(mcName).append("\",\"serverhash\":\"").append(s1)
+                        .append("\",\"server\":\"").append(server).append("\"}").toString();
+
+                HttpURLConnection connection = (HttpURLConnection) new URL("https://auth.mcleaks.net/v1/joinserver")
+                        .openConnection();
+                connection.setConnectTimeout(10000);
+                connection.setReadTimeout(10000);
+                connection.setRequestMethod("POST");
+                connection.setDoOutput(true);
+
+                DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream());
+                outputStream.write(jsonBody.getBytes("UTF-8"));
+                outputStream.flush();
+                outputStream.close();
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                StringBuilder out = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    out.append(line);
+                }
+                reader.close();
+
+                JsonElement jsonElement = (JsonElement) new Gson().fromJson(out.toString(), JsonElement.class);
+
+                if ((!jsonElement.isJsonObject()) || (!jsonElement.getAsJsonObject().has("success"))) {
+                    this.networkManager.closeChannel(new TextComponentTranslation("Invalid response from MCLeaks API"));
+                    return;
+                }
+                if (!jsonElement.getAsJsonObject().get("success").getAsBoolean()) {
+                    String errorMessage = "Received success=false from MCLeaks API";
+                    if (jsonElement.getAsJsonObject().has("errorMessage")) {
+                        errorMessage = jsonElement.getAsJsonObject().get("errorMessage").getAsString();
+                    }
+
+                    this.networkManager.closeChannel(new TextComponentTranslation(errorMessage));
+                    return;
+                }
+            } catch (Exception e) {
+                this.networkManager.closeChannel(new TextComponentTranslation(new StringBuilder()
+                        .append("Error whilst contacting MCLeaks API: ").append(e.toString()).toString()));
+                return;
+            }
+        } else if (this.mc.getCurrentServerData() != null && this.mc.getCurrentServerData().isOnLAN()) {
             try {
                 this.getSessionService().joinServer(this.mc.getSession().getProfile(), this.mc.getSession().getToken(), s1);
             } catch (AuthenticationException var10) {
@@ -68,13 +120,13 @@ public class NetHandlerLoginClient implements INetHandlerLoginClient {
             try {
                 this.getSessionService().joinServer(this.mc.getSession().getProfile(), this.mc.getSession().getToken(), s1);
             } catch (AuthenticationUnavailableException var7) {
-                this.networkManager.closeChannel(new TextComponentTranslation("disconnect.loginFailedInfo", new TextComponentTranslation("disconnect.loginFailedInfo.serversUnavailable")));
+                this.networkManager.closeChannel(new TextComponentTranslation("disconnect.loginFailedInfo", new Object[]{new TextComponentTranslation("disconnect.loginFailedInfo.serversUnavailable", new Object[0])}));
                 return;
             } catch (InvalidCredentialsException var8) {
-                this.networkManager.closeChannel(new TextComponentTranslation("disconnect.loginFailedInfo", new TextComponentTranslation("disconnect.loginFailedInfo.invalidSession")));
+                this.networkManager.closeChannel(new TextComponentTranslation("disconnect.loginFailedInfo", new Object[]{new TextComponentTranslation("disconnect.loginFailedInfo.invalidSession", new Object[0])}));
                 return;
             } catch (AuthenticationException authenticationexception) {
-                this.networkManager.closeChannel(new TextComponentTranslation("disconnect.loginFailedInfo", authenticationexception.getMessage()));
+                this.networkManager.closeChannel(new TextComponentTranslation("disconnect.loginFailedInfo", new Object[]{authenticationexception.getMessage()}));
                 return;
             }
         }

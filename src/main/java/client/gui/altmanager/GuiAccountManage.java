@@ -103,6 +103,10 @@ public class GuiAccountManage extends GuiScreen {
                 StarManager.saveStars();
                 break;
             }
+            case 77: {
+                this.mc.displayGuiScreen(new LeakAccount(false));
+                break;
+            }
         }
     }
 
@@ -122,12 +126,13 @@ public class GuiAccountManage extends GuiScreen {
             }
         }
         this.drawDefaultBackground();
+        RenderUtils.drawBorderedRect(8.0F, 8.0F, 12.0F + fontRendererObj.getStringWidth(mc.session.getUsername()), 20.0F, 1.0F,525883, Integer.MIN_VALUE);
         drawString(this.fontRendererObj, mc.session.getUsername(), 10, 10, -7829368);
 //        drawString(this.fontRendererObj, "Current Service: " + service.currentService.name(), 10, 20, -7829368);
 
         drawCenteredString(this.fontRendererObj, "Account Manager - " + AccountManager.accountList.size() + " alts", width / 2, 10, -1);
         drawCenteredString(this.fontRendererObj, this.info, width / 2, 20, -1);
-        RenderUtils.drawBorderedRect(50.0F, 33.0F, width - 50, height - 50, 1.0F,-16777216, Integer.MIN_VALUE);
+        RenderUtils.drawBorderedRect(50.0F, 33.0F, width - 50, height - 53, 1.0F,-16777216, Integer.MIN_VALUE);
         GL11.glPushMatrix();
         prepareScissorBox(0.0F, 33.0F, width, height - 50);
         GL11.glEnable(3089);
@@ -202,9 +207,9 @@ public class GuiAccountManage extends GuiScreen {
                 drawCenteredString(this.fontRendererObj, name, width / 2, y - this.offset, -1);
                 drawCenteredString(this.fontRendererObj, pass, width / 2, y - this.offset + 10, 5592405);
 
-                /*if (StarManager.getStar(alt).starred) {
+                if (StarManager.getStar(alt).starred) {
                     drawCenteredString(this.fontRendererObj, "§eStarred", width / 2 + 130, y - this.offset, -1);
-                }*/
+                }
                 if (BanManager.getBan(alt) != null) {
                     Ban ban = BanManager.getBan(alt);
                     if (ban != null) {
@@ -221,18 +226,18 @@ public class GuiAccountManage extends GuiScreen {
     }
 
     public void initGui() {
-        this.buttonList.add(new GuiButton(0, width / 2 + 4 + 76, height - 24, 75, 20, "Cancel"));
-        this.buttonList.add(this.login = new GuiButton(1, width / 2 - 154, height - 48, 100, 20, "Login"));
-        this.buttonList.add(this.remove = new GuiButton(2, width / 2 - 74, height - 24, 70, 20, "Remove"));
-        this.buttonList.add(new GuiButton(3, width / 2 + 4 + 50, height - 48, 100, 20, "Add"));
-        this.buttonList.add(new GuiButton(4, width / 2 - 50, height - 48, 100, 20, "Direct Login"));
+        this.buttonList.add(new GuiButton(0, width / 2 + 4 + 76, height - 24, 70, 20, "Cancel"));
+        this.buttonList.add(this.login = new GuiButton(1, width / 2 - 154, height - 48, 70, 20, "Login"));
+        this.buttonList.add(this.remove = new GuiButton(2, width / 2 - 78, height - 24, 70, 20, "Remove"));
+        this.buttonList.add(new GuiButton(3, width / 2 + 4, height - 48, 70, 20, "Add"));
+        this.buttonList.add(new GuiButton(77, width / 2 - 78, height - 48, 70, 20, "McLeak"));
         this.buttonList.add(this.rename = new GuiButton(5, width / 2 - 154, height - 24, 70, 20, "Edit"));
-        this.buttonList.add(new GuiButton(6, width / 2 + 4, height - 24, 70, 20, "Random"));
+        this.buttonList.add(this.removeBan = new GuiButton(9, width / 2 + 4, height - 24, 70, 20, "Remove Ban"));
+        this.buttonList.add(this.star = new GuiButton(10, width / 2 + 4 + 76, height - 48, 70, 20, "Protect"));
 
 //        this.buttonList.add(new GuiButton(11, width / 2 - 206, height - 48, 50, 20, "Altening"));
 //        this.buttonList.add(new GuiButton(7, width / 2 - 206, height - 24, 50, 20, "Switch"));
-        this.buttonList.add(this.removeBan = new GuiButton(9, width / 2 + 157, height - 24, 60, 20, "Remove Ban"));
-        this.buttonList.add(this.star = new GuiButton(10, width / 2 + 157, height - 48, 60, 20, "Protect"));
+//        this.buttonList.add(new GuiButton(6, width / 2 + 4, height - 24, 70, 20, "Random"));
 
         this.login.enabled = false;
         this.remove.enabled = false;

@@ -3,14 +3,12 @@ package net.minecraft.client.multiplayer;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import client.alt.mcleaks.APIDownException;
-import client.alt.mcleaks.InvalidTokenException;
-import client.alt.mcleaks.MCLeaksAPIConnection;
-import client.alt.mcleaks.MCLeaksAccount;
-import client.exceptions.APIErrorException;
-import client.exceptions.InvalidResponseException;
+
+import com.mojang.authlib.GameProfile;
+import net.mcleaks.MCLeaks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiDisconnected;
@@ -65,7 +63,11 @@ public class GuiConnecting extends GuiScreen {
                     GuiConnecting.this.networkManager = NetworkManager.createNetworkManagerAndConnect(inetaddress, port, GuiConnecting.this.mc.gameSettings.isUsingNativeTransport());
                     GuiConnecting.this.networkManager.setNetHandler(new NetHandlerLoginClient(GuiConnecting.this.networkManager, GuiConnecting.this.mc, GuiConnecting.this.previousGuiScreen));
                     GuiConnecting.this.networkManager.sendPacket(new C00Handshake(ip, port, EnumConnectionState.LOGIN));
-                    GuiConnecting.this.networkManager.sendPacket(new CPacketLoginStart(GuiConnecting.this.mc.getSession().getProfile()));
+                    if(MCLeaks.isAltActive()) {
+                        GuiConnecting.this.networkManager.sendPacket(new CPacketLoginStart(new GameProfile((UUID)null, MCLeaks.getMCName())));
+                    } else {
+                        GuiConnecting.this.networkManager.sendPacket(new CPacketLoginStart(GuiConnecting.this.mc.getSession().getProfile()));
+                    }
                 } catch (UnknownHostException unknownhostexception) {
                     if (GuiConnecting.this.cancel) {
                         return;

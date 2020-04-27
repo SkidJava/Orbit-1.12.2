@@ -16,16 +16,16 @@
  public class ModApi
  {
    public static final ExecutorService EXECUTOR_SERVICE = Executors.newCachedThreadPool();
-   private static final String API_URL = "http://auth.mcleaks.net/v1/";
+   private static final String API_URL = "https://auth.mcleaks.net/v1/";
    private static final Gson gson = new Gson();
  
    public static void redeem(String token, final Callback<Object> callback) {
-     String url = "http://auth.mcleaks.net/v1/redeem";
+     String url = "https://auth.mcleaks.net/v1/redeem";
  
      EXECUTOR_SERVICE.execute(new Runnable()
      {
        public void run() {
-         URLConnection connection = ModApi.preparePostRequest("http://auth.mcleaks.net/v1/redeem", "{\"token\":\"" + token + "\"}");
+         URLConnection connection = ModApi.preparePostRequest("https://auth.mcleaks.net/v1/redeem", "{\"token\":\"" + token + "\"}");
  
          if (connection == null) {
            callback.done("An error occured! [R1]");
@@ -45,7 +45,9 @@
            callback.done("An error occured! [R2]");
            return;
          }
- 
+
+         System.out.println(jsonObject.get("mcname").getAsString());
+         System.out.println(jsonObject.get("session").getAsString());
          RedeemResponse response = new RedeemResponse();
          response.setMcName(jsonObject.get("mcname").getAsString());
          response.setSession(jsonObject.get("session").getAsString());
@@ -111,7 +113,8 @@
        if (!jsonElement.getAsJsonObject().has("result")) {
          return "An error occured! [G3]";
        }
- 
+
+       System.out.println(jsonElement.getAsJsonObject().get("result").getAsJsonObject());
        return jsonElement.getAsJsonObject().get("result").isJsonObject() ? jsonElement.getAsJsonObject().get("result").getAsJsonObject() : null;
      } catch (Exception e) {
        e.printStackTrace();
