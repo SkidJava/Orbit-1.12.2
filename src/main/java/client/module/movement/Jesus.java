@@ -29,7 +29,7 @@ public class Jesus extends Module {
             this.mc.thePlayer.motionY = 0.085;
         }
         if (!LiquidUtils.isOnLiquid() || LiquidUtils.isInLiquid() || !this.shouldSetBoundingBox()) {
-            shouldOffsetPacket = false;
+            shouldOffsetPacket = true;
         }
     }
 

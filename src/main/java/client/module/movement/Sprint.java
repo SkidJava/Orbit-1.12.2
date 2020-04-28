@@ -13,7 +13,7 @@ import org.lwjgl.input.Keyboard;
 
 public class Sprint extends Module {
     public Sprint() {
-        super("Sprint", Keyboard.KEY_NONE, Category.MOVEMENT, false);
+        super("Sprint", Keyboard.KEY_NONE, Category.MOVEMENT, true);
         managers.settingManager.addSetting(new Setting(this, "Fake", false));
         managers.settingManager.addSetting(new Setting(this, "Strafe", true));
         managers.settingManager.addSetting(new Setting(this, "Keep", true));
@@ -31,18 +31,20 @@ public class Sprint extends Module {
     private void onPacketSend(PrePacketSendEvent event) {
         CPacketEntityAction packet;
         if (managers.settingManager.getSetting(this, "Fake").getBooleanValue() && event.packet instanceof CPacketEntityAction &&
-            ((packet = (CPacketEntityAction)event.packet).getAction() == CPacketEntityAction.Action.START_SPRINTING || packet.getAction() == CPacketEntityAction.Action.STOP_SPRINTING)) {
+                ((packet = (CPacketEntityAction) event.packet).getAction() == CPacketEntityAction.Action.START_SPRINTING)) {
             event.setCancelled(true);
         }
     }
 
     private boolean canSprint() {
-        if (!mc.thePlayer.isCollidedHorizontally && !mc.thePlayer.isSneaking() && (!managers.settingManager.getSetting(this, "Legit").getBooleanValue() ||
-            managers.settingManager.getSetting(this, "Legit").getBooleanValue() && mc.thePlayer.getFoodStats().getFoodLevel() > 5)) {
-            if (managers.settingManager.getSetting(this, "Strafe").getBooleanValue()) {
-                return MovementInput.moveForward != 0.0f || MovementInput.moveStrafe != 0.0f;
+        if (mc.thePlayer != null) {
+            if (!mc.thePlayer.isCollidedHorizontally && !mc.thePlayer.isSneaking() && (!managers.settingManager.getSetting(this, "Legit").getBooleanValue() ||
+                    managers.settingManager.getSetting(this, "Legit").getBooleanValue() && mc.thePlayer.getFoodStats().getFoodLevel() > 5)) {
+                if (managers.settingManager.getSetting(this, "Strafe").getBooleanValue()) {
+                    return MovementInput.moveForward != 0.0f || MovementInput.moveStrafe != 0.0f;
+                }
+                return MovementInput.moveForward > 0.0f;
             }
-            return MovementInput.moveForward > 0.0f;
         }
         return false;
     }

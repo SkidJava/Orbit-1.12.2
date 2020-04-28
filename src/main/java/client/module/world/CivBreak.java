@@ -24,20 +24,26 @@ public class CivBreak extends Module {
     private BlockPos pos;
     public boolean isDest = true;
     public boolean sendClick = true;
-    EnumFacing side;
+    private EnumFacing side;
+
+    public void onDisable() {
+        this.pos = null;
+        this.side = null;
+        super.onDisable();
+    }
 
     @EventTarget
     private void onBreakPacketSent(PrePacketSendEvent event) {
         if (event.getPacket() instanceof CPacketPlayerDigging) {
-            if (((CPacketPlayerDigging) event.getPacket()).getAction() == CPacketPlayerDigging.Action.RELEASE_USE_ITEM) {
+            if (((CPacketPlayerDigging) event.getPacket()).getAction() == CPacketPlayerDigging.Action.STOP_DESTROY_BLOCK) {
                 BlockPos np = ((CPacketPlayerDigging) event.getPacket()).getPosition();
                 if (pos.getX() != np.getX() || pos.getY() != np.getY() || pos.getZ() != np.getZ()) {
                     isDest = false;
                 } else {
                     isDest = true;
                 }
-                System.out.println("sads");
-                this.pos = ((CPacketPlayerDigging) event.getPacket()).getPosition();
+                //this.pos = ((CPacketPlayerDigging) event.getPacket()).getPosition();
+                //this.side = ((CPacketPlayerDigging) event.getPacket()).getFacing();
             }
         }
     }
@@ -46,7 +52,7 @@ public class CivBreak extends Module {
     private void onDigging(EventBlockBreaking event) {
         if (event.getState() == EventBlockBreaking.EnumBlock.CLICK && !this.sendClick) {
             this.pos = event.getPos();
-            side = event.getSide();
+            this.side = event.getSide();
         }
     }
 
@@ -62,7 +68,8 @@ public class CivBreak extends Module {
             if (distance > 7) {
                 if (isDest) {
                     isDest = false;
-                    mc.getConnection().sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.RELEASE_USE_ITEM, new BlockPos(0, 0, 0), EnumFacing.UP));
+                    mc.thePlayer.swingArm(mc.thePlayer.swingingHand);
+                    mc.getConnection().sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.ABORT_DESTROY_BLOCK, this.pos, this.side));
                 }
                 return;
             }
@@ -75,17 +82,20 @@ public class CivBreak extends Module {
     @EventTarget
     private void onPostUpdate(EventPostMotionUpdates event) {
         if (this.pos != null && isDest) {
-            this.mc.getConnection().sendPacket(new CPacketAnimation());
-            this.mc.getConnection().sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.START_DESTROY_BLOCK, pos, EnumFacing.WEST));
-            this.mc.getConnection().sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.STOP_DESTROY_BLOCK, pos, EnumFacing.WEST));
+            //this.mc.getConnection().sendPacket(new CPacketAnimation());
+            mc.thePlayer.swingArm(mc.thePlayer.swingingHand);
+            this.mc.getConnection().sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.START_DESTROY_BLOCK, this.pos, this.side));
+            this.mc.getConnection().sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.STOP_DESTROY_BLOCK, this.pos, this.side));
+            mc.playerController.clickBlock(this.pos, this.side);
         } else {
             isDest = false;
         }
 
         if (this.pos != null && !isDest) {
             this.sendClick = true;
-            mc.getConnection().sendPacket(new CPacketAnimation());
-            mc.playerController.onPlayerDamageBlock(this.pos, EnumFacing.DOWN);
+            //mc.getConnection().sendPacket(new CPacketAnimation());
+            mc.thePlayer.swingArm(mc.thePlayer.swingingHand);
+            mc.playerController.onPlayerDamageBlock(this.pos, this.side);
             this.sendClick = false;
         }
     }
